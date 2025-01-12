@@ -1,5 +1,6 @@
 
 # Test outputs and reports
+
 /test-output/*
 /reports/*
 /Screenshots/*
@@ -9,6 +10,7 @@
 
 # Make sure NOT to ignore .xml
 !/test-output/*.xml
+
 
 
 
