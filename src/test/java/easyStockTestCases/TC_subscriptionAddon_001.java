@@ -1,0 +1,90 @@
+package easyStockTestCases;
+
+import org.testng.annotations.Test;
+
+import easyStockPageObjects.LoginPage;
+import easyStockPageObjects.SubscriptionPage;
+import easyStockUtilities.AndroidActions;
+
+public class TC_subscriptionAddon_001 extends BaseClass {
+
+    // Set the default value for addonName to "All"
+    String addonName = "All"; // Default value
+    int numof=1;
+    @Test()
+    public void Addon() throws InterruptedException {
+        Addon(addonName,numof);  // Call the Addon method with the default value or dynamic value
+    }
+
+    public void Addon(String addonName,int numof) throws InterruptedException {
+       
+        SubscriptionPage sp = new SubscriptionPage(driver);
+        AndroidActions scroll = new AndroidActions(driver);
+        LoginPage lp=new LoginPage(driver);
+        // Click on profile
+        
+        sp.setSidebarsubscription();
+
+        // Click on Addons section
+        sp.setAddonsClick();
+
+        // Handle different addon scenarios
+        if (addonName.equalsIgnoreCase("branch")) {
+        	for (int i = 1; i <= numof; i++) 
+        	{  
+            sp.setPlusBranch();
+            }
+        } 
+        else if (addonName.equalsIgnoreCase("User")) {
+        	for (int i = 1; i <= numof; i++) 
+        	{  
+        		sp.setPlusUser();
+            }
+            
+        } else if (addonName.equalsIgnoreCase("Warehouse")) {
+        	for (int i = 1; i <= numof; i++) 
+        	{  
+        		sp.setPlusWarehouse();
+            }
+            
+        } else if (addonName.equalsIgnoreCase("Support")) {
+        	for (int i = 1; i <= numof; i++) 
+        	{  
+        		sp.setPlusSupport();
+            }
+            
+            
+        } else if (addonName.equalsIgnoreCase("All")) {
+        	for (int i = 1; i <= numof; i++) 
+        	{  
+        		sp.setPlusBranch();
+                sp.setPlusUser();
+                sp.setPlusWarehouse();
+                sp.setPlusSupport();
+            }
+            
+        }
+
+        // Proceed with the payment flow
+        sp.setPaynow();
+        sp.setProceedtopay();
+        sp.setWalletMode();
+        sp.setWalletcard();
+        sp.setpaybtn();
+
+        // Scroll to the bottom
+        scroll.scrollTwithpercentAction(1);
+        
+        // Handle OTP flow
+        sp.setOtpClick();
+        sp.setOtp("111000");
+
+        // Finalize the subscription
+        sp.setSuccess();
+        sp.setSubmitBtn();
+        softAssert.assertTrue(sp.ispaymentSuccessfull(), "Payment Succefull");
+        sp.setDoneBtn();
+        lp.setprofilebtn();
+        
+    }
+}
