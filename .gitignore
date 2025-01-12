@@ -1,12 +1,4 @@
-# Test outputs and reports
-test-output/
-reports/
-Screenshots/
 
-# Log files
-*.log
 
-# Make sure NOT to ignore testng.xml
-!*.xml
 
 
