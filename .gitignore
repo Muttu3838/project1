@@ -1,13 +1,14 @@
 # Test outputs and reports
-test-output/
-reports/
-Screenshots/
+/test-output/*
+/reports/*
+/Screenshots/*
 
 # Log files
-*.log
+/log/*
 
 # Make sure NOT to ignore .xml
-!*.xml
+!/test-output/*.xml
+
 
 
 
