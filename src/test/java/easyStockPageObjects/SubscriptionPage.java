@@ -13,7 +13,7 @@ public class SubscriptionPage extends AndroidActions {
 
 	private FlutterAndroidDriver driver;
 
-	public SubscriptionPage(FlutterAndroidDriver driver) {
+	 public SubscriptionPage(FlutterAndroidDriver driver) {
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(new AppiumFieldDecorator(this.driver), this);
