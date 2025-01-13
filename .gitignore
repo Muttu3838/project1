@@ -1,18 +1,7 @@
 
-# Test outputs and reports
+# Folder to Ignore
+/log/
+/reports/
+/Screenshots/
 
-/test-output/*
-/reports/*
-/Screenshots/*
-
-# Log files
-/log/*
-
-# Make sure NOT to ignore .xml
-!/test-output/*.xml
-
-
-
-
-
-*.log
+/log
