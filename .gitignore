@@ -3,5 +3,8 @@
 /log/
 /reports/
 /Screenshots/
-
-/log
+test-output/Default suite/Default test.html
+test-output/emailable-report.html
+test-output/Default suite/Default test.xml
+test-output/junitreports/TEST-easyStockTestCases.TC_Login_001.xml
+test-output/testng-results.xml
