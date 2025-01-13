@@ -1,0 +1,7 @@
+Screenshots/
+log/
+reports/
+test-output/
+!test-output/important.txt
+!test-output/special-subfolder/
+!test-output/testng-failed.xml
