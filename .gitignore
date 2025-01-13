@@ -1,19 +1,6 @@
-
-Screenshots/*
 log/*
 reports/*
 test-output/
 !test-output/testng-failed.xml
-
-
-log/application.html
 *.log
-*.html
 /test-output/Default suite
-/test-output/Default suite
-/test-output/junitreports
-*.css
-*.js
-*.css
-*.js
-test-output/testng-results.xml
