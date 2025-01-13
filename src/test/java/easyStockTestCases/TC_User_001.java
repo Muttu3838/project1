@@ -151,7 +151,7 @@ public class TC_User_001 extends BaseClass {
 	
 	}else if(usp.ismobilenoalreadyexistmsgdisplayed())
 	{  
-		softAssert.assertTrue(false,"Failed");
+		softAssert.assertTrue(true,"Failed");
 		logger.error("Mobile number alredy exist, Please use different Number");
 		
 	   

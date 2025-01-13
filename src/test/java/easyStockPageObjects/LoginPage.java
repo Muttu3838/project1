@@ -24,7 +24,7 @@ public class LoginPage extends AndroidActions {
 	
 	
 	
-	public LoginPage(FlutterAndroidDriver driver)
+	  public LoginPage(FlutterAndroidDriver driver)
 	{   super(driver);
 		this.driver=driver;
 		PageFactory.initElements(new AppiumFieldDecorator(this.driver), this);

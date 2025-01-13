@@ -17,7 +17,7 @@ public class UserPage extends AndroidActions{
 
 private FlutterAndroidDriver driver;
 	
-	public UserPage (FlutterAndroidDriver driver)
+	 public UserPage (FlutterAndroidDriver driver)
 	{   super(driver);
 		this.driver=driver;
 		PageFactory.initElements(new AppiumFieldDecorator(this.driver), this);

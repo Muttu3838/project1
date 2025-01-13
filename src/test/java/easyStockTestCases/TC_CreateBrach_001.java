@@ -1,6 +1,7 @@
 package easyStockTestCases;
 
 import org.testng.annotations.Test;
+
 import easyStockPageObjects.BranchPage;
 
 public class TC_CreateBrach_001 extends BaseClass {

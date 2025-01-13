@@ -15,7 +15,7 @@ public class confWarehousePage extends AndroidActions {
 
 	private FlutterAndroidDriver driver;
 	
-	public confWarehousePage (FlutterAndroidDriver driver)
+	 public confWarehousePage (FlutterAndroidDriver driver)
 	{   super(driver);
 		this.driver=driver;
 		PageFactory.initElements(new AppiumFieldDecorator(this.driver), this);

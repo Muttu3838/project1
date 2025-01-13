@@ -18,7 +18,7 @@ public class UploadPage extends AndroidActions {
 	
 	private FlutterAndroidDriver driver;
 	
-	public UploadPage (FlutterAndroidDriver driver)
+	 public UploadPage (FlutterAndroidDriver driver)
 	{   super(driver);
 		this.driver=driver;
 		PageFactory.initElements(new AppiumFieldDecorator(this.driver), this);

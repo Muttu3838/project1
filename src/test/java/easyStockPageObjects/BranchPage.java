@@ -14,7 +14,7 @@ public class BranchPage extends AndroidActions {
 	
 	private FlutterAndroidDriver driver;
 	
-	public BranchPage (FlutterAndroidDriver driver)
+	 public BranchPage (FlutterAndroidDriver driver)
 	{   super(driver);
 		this.driver=driver;
 		PageFactory.initElements(new AppiumFieldDecorator(this.driver), this);
