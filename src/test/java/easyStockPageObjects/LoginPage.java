@@ -150,9 +150,9 @@ public class LoginPage extends AndroidActions {
 		btnprofile.click();
 		
 	}
-	public boolean isprofilebtndisplayed()
+	public boolean isprofilebtndisplayed() throws InterruptedException
 	{
-		 try {
+		 try {  
 	        	waitForElementToAppear(btnprofile, driver);
 	            return isElementPresent(btnprofile);
 	        } catch (NoSuchElementException e) {
@@ -169,7 +169,7 @@ public class LoginPage extends AndroidActions {
 			btnlogout.click();
 	}
 	
-	public void setUserNameclick() throws InterruptedException
+	/*public void setUserNameclick() throws InterruptedException
 	{
 		waitForElementTobeClickable(txtUserName, driver);	
 		txtUserName.click();
@@ -182,15 +182,18 @@ public class LoginPage extends AndroidActions {
 		txtUserName.clear();
 		
 		
-	}
+	}*/
 	public void setUserName(String uname)
 	{
 		
 		waitForElementToAppear(txtUserName, driver);
+		
+		txtUserName.click();
+		txtUserName.clear();
 		txtUserName.sendKeys(uname);
 	}
 	
-	public void setPasswordClick()
+	/*public void setPasswordClick()
 	{
 		waitForElementTobeClickable(txtPassword, driver);
 		txtPassword.click();
@@ -203,11 +206,14 @@ public class LoginPage extends AndroidActions {
 		txtPassword.clear();
 		
 		
-	}
+	}*/
 	public void setPassword(String pwd)
 	{
 		
 		waitForElementToAppear(txtPassword, driver);
+		
+		txtPassword.click();
+		txtPassword.clear();
 		txtPassword.sendKeys(pwd);
 	}
 	

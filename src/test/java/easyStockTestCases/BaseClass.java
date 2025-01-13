@@ -141,7 +141,7 @@ public class BaseClass extends AppiumUtils {
 		logger.info("Portal is opened");
 		Thread.sleep(1000);
 
-		lp.setUserNameclick();
+		//lp.setUserNameclick();
 
 		lp.setUserName(username);
 		// Thread.sleep(3000);
@@ -149,7 +149,7 @@ public class BaseClass extends AppiumUtils {
 		// driver.hideKeyboard();
 		// Thread.sleep(2000);
 
-		lp.setPasswordClick();
+		//lp.setPasswordClick();
 		// Thread.sleep(2000);
 
 		lp.setPassword(password);
