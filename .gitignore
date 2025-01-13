@@ -1,5 +1,5 @@
-Screenshots/
-log/
-reports/
-test-output/
+**/Screenshots/
+**/log/
+**/reports/
+**/test-output/
 !test-output/testng-failed.xml
