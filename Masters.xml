@@ -3,10 +3,10 @@
 <suite name="Master Suite">
 
 
-
+<!--
 <listeners>
 <listener class-name="easyStockUtilities.Reporting"/>
-</listeners>
+</listeners>-->
 
 	  <test thread-count="5" name="Master Test">
   
