@@ -22,7 +22,7 @@ public class TC_Login_001 extends BaseClass {
 		logger.info("Portal is opened");
 		
 
-		lp.setUserNameclick();
+		//lp.setUserNameclick();
 
 		lp.setUserName(username);
 		// Thread.sleep(3000);
@@ -30,7 +30,7 @@ public class TC_Login_001 extends BaseClass {
 		// driver.hideKeyboard();
 		// Thread.sleep(2000);
 
-		lp.setPasswordClick();
+		//lp.setPasswordClick();
 		// Thread.sleep(2000);
 
 		lp.setPassword(password);

@@ -20,7 +20,7 @@ public class TC_LoginDDT_001 extends BaseClass {
         LoginPage lp = new LoginPage(driver);
         AndroidActions action = new AndroidActions(driver);
         
-        logger.info("Testing with Username: " + user);
+        logger.info("Testing with Username: " + user +" & password as:"+ pwd);
         
         try {
             // Perform login steps
@@ -29,7 +29,7 @@ public class TC_LoginDDT_001 extends BaseClass {
            
             
             // Check login result and handle accordingly
-            handleLoginResult(lp,action);
+            handleLoginResult(lp,action,currurl);
             
         } catch (Exception e) {
             logger.error("Test failed with exception: " + e.getMessage());
@@ -40,14 +40,14 @@ public class TC_LoginDDT_001 extends BaseClass {
     
     private void performLoginSteps(LoginPage lp, AndroidActions action, String user, String pwd) throws InterruptedException {
         // Username entry
-        lp.setUserNameclick();
-        lp.setUserNameclear();
+        //lp.setUserNameclick();
+        //lp.setUserNameclear();
         lp.setUserName(user);
         logger.info("Username entered");
         
         // Password entry
-        lp.setPasswordClick();
-        lp.setPasswordClear();
+        //lp.setPasswordClick();
+        //lp.setPasswordClear();
         lp.setPassword(pwd);
         logger.info("Password entered");
         
@@ -59,30 +59,56 @@ public class TC_LoginDDT_001 extends BaseClass {
         
     }
     
-    private void handleLoginResult(LoginPage lp,AndroidActions action) throws InterruptedException {
+    private void handleLoginResult(LoginPage lp,AndroidActions action,String currurl) throws InterruptedException 
+    {
         
     	 if (lp.isLoginSuccessful()) {
+    		 
+    		 if(currurl.equalsIgnoreCase("Valid")) {
+    	            softAssert.assertTrue(true,"passed");
+    		 }else {
+    			 
+    			 softAssert.assertTrue(false,"failed");   
+    		       }
     		 
             logger.info("Login successful - proceeding with logout");
            
             performLogout(lp);
-            Assert.assertTrue(true,"passed");
-            
-        }  
+           }
+    
+          
     	else if (lp.isUserNotFoundMessageDisplayed()) {
+    		
+    		if(currurl.equalsIgnoreCase("Invalid")) {
+    			
+    			softAssert.assertTrue(true, "Test passed - UserNotFound");
+	            
+		 }else {
+			 
+			 softAssert.assertTrue(false,"failed");   
+		       }
+    		
             logger.info("Expected negative test case - UserNotFound");
             
-            Assert.assertTrue(true, "Test passed - UserNotFound");
             
         }
         else if (lp.isInvalidMobileNumberDisplayed() || lp.isInvalidPasswordDisplayed()) {
+        	
+             if(currurl.equalsIgnoreCase("Invalid")) {
+    			
+	            softAssert.assertTrue(true, "Test passed - Invalid credentials detected as expected");
+	            
+		 }else {
+			 
+			 softAssert.assertTrue(false,"failed");   
+		       }
             logger.info("Expected negative test case - invalid credentials");
-            Assert.assertTrue(true, "Test passed - Invalid credentials detected as expected");
+           
         }
        
         else {
             logger.error("No expected message found on screen");
-            Assert.fail("Test failed - Could not determine login outcome");
+            softAssert.fail("Test failed - Could not determine login outcome");
         }
     }
     
