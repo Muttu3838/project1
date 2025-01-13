@@ -1,12 +1,8 @@
 
 
 Screenshots/*
-!Screenshots/.gitkeep
 log/*
-!log/.gitkeep
 reports/*
-!reports/.gitkeep
 test-output/
-!test-output/important.txt
 !test-output/testng-failed.xml
 
