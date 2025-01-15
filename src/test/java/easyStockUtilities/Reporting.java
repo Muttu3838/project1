@@ -71,7 +71,8 @@ public class Reporting extends TestListenerAdapter
 		logger.assignCategory(result.getMethod().getGroups());
 		logger.log(Status.PASS,result.getName()+" got successfully executed");
 		logger.log(Status.PASS,MarkupHelper.createLabel(result.getName(),ExtentColor.GREEN)); // send the passed information to the report with GREEN color highlighted
-		try {
+		//Screenshot taking on every TestCase Pass
+		/*try {
 			String imgPath=new BaseClass().captureScreen(result.getTestClass().getName());
 		    logger.addScreenCaptureFromPath(imgPath);
 			
@@ -79,7 +80,7 @@ public class Reporting extends TestListenerAdapter
 		catch(IOException e1)
 		{
 		e1.printStackTrace();
-		}
+		}*/
 	}
 	@Override
 	public void onTestFailure(ITestResult result)
