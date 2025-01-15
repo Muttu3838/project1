@@ -53,7 +53,6 @@ public class AndroidActions extends AppiumUtils{
 	public void scrollTwithpercentAction(int d)
 	{
 		 driver.executeScript("mobile: scrollGesture",ImmutableMap.of(
-					
 					"left", 100, "top", 200, "width",200,  "height", 200,
 					"direction", "down",
 					"percent", d
@@ -90,5 +89,32 @@ public class AndroidActions extends AppiumUtils{
 		
 		
 	}
+	
+	public void swipeToEndAction(WebElement ele,String direction)
+	{
+		boolean canScrollMore;
+		do
+		{
+		 canScrollMore = (Boolean) ((JavascriptExecutor) driver).executeScript("mobile: swipeGesture", ImmutableMap.of(
+					"elementId", ((RemoteWebElement)ele).getId(),
+					 
+				    "direction", direction,
+				    "percent", 0.75
+				));
+		 
+		}while(canScrollMore);
+	}
+	
+	public void scrollDown(String direction) {
+	        try {
+	            driver.executeScript("mobile: swipeGesture", ImmutableMap.of(
+	                "direction", direction,
+	                "percent", 0.8
+	            ));
+	            Thread.sleep(1000);
+	        } catch (Exception e) {
+	            System.out.println("Alternative scroll failed: " + e.getMessage());
+	        }
+	    }
 
 }

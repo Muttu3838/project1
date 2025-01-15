@@ -78,6 +78,13 @@ public abstract class AppiumUtils {
 		wait.pollingEvery(Duration.ofMillis(500));
 	}
 	
+	public void waitForElementTobeDisappear(WebElement ele, AppiumDriver driver)
+	{
+		WebDriverWait wait =new WebDriverWait(driver,Duration.ofSeconds(20));
+		wait.until(ExpectedConditions.invisibilityOf(ele));
+		wait.pollingEvery(Duration.ofMillis(500));
+	}
+	
 	
 		
 		

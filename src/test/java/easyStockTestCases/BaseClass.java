@@ -45,7 +45,7 @@ public class BaseClass extends AppiumUtils {
 	public static FlutterAndroidDriver driver;
 	protected UiAutomator2Options options;
 	public AppiumDriverLocalService service;
-	 protected static SoftAssert softAssert; 
+	protected static SoftAssert softAssert; 
 	
 	 private boolean skipLogin = false;
 	 private boolean skipProfileClick = false;    
