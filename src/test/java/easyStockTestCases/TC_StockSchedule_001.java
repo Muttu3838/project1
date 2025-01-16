@@ -8,10 +8,10 @@ public class TC_StockSchedule_001 extends BaseClass {
 	
 
 	
-	@Test
-	public void scheduleDaily() throws InterruptedException {
+
+	public void schedule(StockSchedulingPage ss) throws InterruptedException {
 		
-		StockSchedulingPage ss=new StockSchedulingPage(driver);
+		//StockSchedulingPage ss=new StockSchedulingPage(driver);
 		
 		ss.settingClick();
 		
@@ -21,7 +21,7 @@ public class TC_StockSchedule_001 extends BaseClass {
 		
 		ss.selectbranch(branchnm);
 		
-		ss.clickAllDailyElements();
+		
 		
 		/*if(ss.isNotificationDisplayed())
 		{
@@ -35,20 +35,26 @@ public class TC_StockSchedule_001 extends BaseClass {
 		
 	}
 	
-	  @Test
-      public void scheduleWeekly() throws InterruptedException {
+	
+	@Test(priority = 0)
+	public void Daily() throws InterruptedException
+	{
+		StockSchedulingPage ss=new StockSchedulingPage(driver);
+		
+		schedule(ss);
+	   
+		ss.clickAllDailyElements();
+	}
+	
+	@Test(priority = 1)
+    public void Weekly() throws InterruptedException {
 		
 		StockSchedulingPage ss=new StockSchedulingPage(driver);
 		
-		ss.settingClick();
 		
-		ss.stockSchedulingClick();
+		schedule(ss);
 		
-		ss.setClickbranch();
-		
-		ss.selectbranch(branchnm);
-		
-		ss.clickAllWeeklyElements("Monday");
+		ss.selectDay("Monday");
 		
 		/*if(ss.isNotificationDisplayed())
 		{
@@ -61,5 +67,50 @@ public class TC_StockSchedule_001 extends BaseClass {
 		}*/
 		
 	}
+	
+	 @Test(priority = 2)
+     public void Monthly() throws InterruptedException {
+		
+		StockSchedulingPage ss=new StockSchedulingPage(driver);
+		
+		
+		schedule(ss);
+		
+		ss.selectDaterange("16", "20");
+		
+		/*if(ss.isNotificationDisplayed())
+		{
+		ss.slideNotication();
+		logger.info("Notication got displayed and swiped succefully");
+		
+		}else
+		{
+			logger.info("Notication not coming");
+		}*/
+		
+	}
+	 
+	 @Test(priority = 3)
+     public void Yearly() throws InterruptedException {
+		
+		StockSchedulingPage ss=new StockSchedulingPage(driver);
+		
+		
+		schedule(ss);
+		
+		ss.selectMonth("16","20","February");
+		
+		/*if(ss.isNotificationDisplayed())
+		{
+		ss.slideNotication();
+		logger.info("Notication got displayed and swiped succefully");
+		
+		}else
+		{
+			logger.info("Notication not coming");
+		}*/
+		
+	}
+	 
 
 }
