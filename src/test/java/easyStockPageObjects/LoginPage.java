@@ -32,7 +32,7 @@ public class LoginPage extends AndroidActions {
 		
 	}
                                
-	@FindBy(xpath   = "//android.widget.Button[@resource-id=\"com.android.permissioncontroller:id/permission_allow_button\"]")
+	@FindBy(id   = "com.android.permissioncontroller:id/permission_allow_button")
 	private WebElement permallowbtn; 
 	                           
 	@FindBy(xpath   = "(//android.widget.EditText)[1]")

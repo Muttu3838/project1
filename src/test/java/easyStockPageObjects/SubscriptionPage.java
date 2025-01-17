@@ -2,6 +2,7 @@ package easyStockPageObjects;
 
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import easyStockUtilities.AndroidActions;
@@ -44,9 +45,24 @@ public class SubscriptionPage extends AndroidActions {
 	@AndroidFindBy(accessibility = "Proceed to Pay")
 	private WebElement pcoceedtopay;
 	
-	@AndroidFindBy(id = "com.mwb.stock_taker:id/rl_wallet_payment_mode")
+	@AndroidFindBy(accessibility  = "Wallets")
 	private WebElement walletmode;
 	
+	@AndroidFindBy(xpath  = "//android.view.View[@text=\"Wallet icon Test Wallet\"]")
+	private WebElement testwallet;
+	//android.widget.TextView[@text=\"Amount Details\"]/parent::android.view.View/android.view.View/android.widget.Button
+	@FindBy(xpath  = "//android.widget.Button[@text=\"Back to Payment Methods\"]")
+	private WebElement BacktoPayment;
+	
+	@FindBy(xpath  = "//android.widget.TextView[@text=\"Amount Details\"]")
+	private WebElement Amountdetails;
+	
+	@FindBy(xpath  = "//android.webkit.WebView[@text=\"Cashfree Checkout\"]/android.view.View/android.view.View[3]/android.view.View/android.view.View/android.widget.Button")
+	private WebElement ProceedtoPay2;
+	
+	@FindBy(xpath  = "//android.widget.Button[@text=\"Pay using Test Wallet\"]")
+	private WebElement TestWalletProceed;
+	//contains(text(), 'search text') //android.widget.Button[contains(text(), 'Proceed to Pay')]
 	@AndroidFindBy(className = "androidx.cardview.widget.CardView")
 	private WebElement choosewalletcard;
 	
@@ -112,6 +128,31 @@ public class SubscriptionPage extends AndroidActions {
 		waitForElementTobeClickable(walletmode, driver);
 		walletmode.click();
 	}
+	
+	public void setTestWallet() {
+		waitForElementTobeClickable(testwallet, driver);
+		testwallet.click();
+	}
+	
+	public String setAmountdeatils() {
+		waitForElementTobeClickable(testwallet, driver);
+		return Amountdetails.getText();
+	}
+	
+	public void setProceedtopay2() {
+		waitForElementTobeClickable(ProceedtoPay2, driver);
+		ProceedtoPay2.click();
+	}
+	
+	public void setBackToPayment() {
+		waitForElementTobeClickable(BacktoPayment, driver);
+		BacktoPayment.click();
+	}
+	
+	public void setTestWalletprocced() {
+		waitForElementTobeClickable(TestWalletProceed, driver);
+		TestWalletProceed.click();
+	}
 
 	public void setWalletcard() {
 		waitForElementTobeClickable(choosewalletcard, driver);
@@ -131,7 +172,7 @@ public class SubscriptionPage extends AndroidActions {
 	public void setOtp(String OTP) {
 		waitForElementToAppear(otpfield, driver);
 		otpfield.sendKeys(OTP);
-		;
+		
 	}
 
 	public void setSuccess() {

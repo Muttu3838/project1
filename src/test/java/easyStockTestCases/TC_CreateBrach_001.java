@@ -3,6 +3,7 @@ package easyStockTestCases;
 import org.testng.annotations.Test;
 
 import easyStockPageObjects.BranchPage;
+import easyStockPageObjects.LoginPage;
 
 public class TC_CreateBrach_001 extends BaseClass {
 
@@ -70,6 +71,9 @@ public class TC_CreateBrach_001 extends BaseClass {
 		    logger.info("Out of plan, adding 1 more Branch from subscription");
 			bp.ClickBack();
 			bp.ClickBack();
+			
+			LoginPage lp=new LoginPage(driver);
+			lp.setprofilebtn();
 			TC_subscriptionAddon_001 Subscribepage=new TC_subscriptionAddon_001();
 			
 			Subscribepage.Addon("branch",1);

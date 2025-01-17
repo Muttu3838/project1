@@ -3,10 +3,10 @@
 <suite name="Master Suite">
 
 
-<!--
+
 <listeners>
 <listener class-name="easyStockUtilities.Reporting"/>
-</listeners>-->
+</listeners>
 
 	  <test thread-count="5" name="Master Test">
   
@@ -16,8 +16,9 @@
       <class name="easyStockTestCases.TC_subscriptionAddon_001"/>
       <class name="easyStockTestCases.TC_CreateBrach_001"/>
       <class name="easyStockTestCases.TC_Upload_002"/>
-       <class name="easyStockTestCases.TC_ConfigWarehouse_001"/>
+      <class name="easyStockTestCases.TC_ConfigWarehouse_001"/>
       <class name="easyStockTestCases.TC_User_001"/>
+      <class name="easyStockTestCases.TC_StockSchedule_001"/>
     
     </classes>
   </test> <!-- Test -->
