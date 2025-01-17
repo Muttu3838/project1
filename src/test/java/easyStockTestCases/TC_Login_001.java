@@ -21,8 +21,9 @@ public class TC_Login_001 extends BaseClass {
 		LoginPage lp = new LoginPage(driver);
 		logger.info("Portal is opened");
 		
-
+        Thread.sleep(3000);
 		//lp.setUserNameclick();
+		//lp.setpermisionallow();
 
 		lp.setUserName(username);
 		// Thread.sleep(3000);

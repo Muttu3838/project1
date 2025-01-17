@@ -475,6 +475,7 @@ public class StockSchedulingPage extends AndroidActions {
 		        // Select from date (only once)
 		        selectDate(fromDate, "From");
 		        
+		        selectDate(fromDate, "From");
 		        // Select to date
 		        selectDate(toDate, "To");
 		        

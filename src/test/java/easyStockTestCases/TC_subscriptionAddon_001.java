@@ -68,9 +68,19 @@ public class TC_subscriptionAddon_001 extends BaseClass {
         // Proceed with the payment flow
         sp.setPaynow();
         sp.setProceedtopay();
+        
         sp.setWalletMode();
-        sp.setWalletcard();
-        sp.setpaybtn();
+        sp.setTestWallet();
+       
+       //String txt=sp.setAmountdeatils();
+       //System.out.println(txt);
+        //Thread.sleep(2000);
+        //sp.setProceedtopay2();
+        //sp.setWalletcard();
+        //Thread.sleep(2000);
+        sp.setBackToPayment();
+        //sp.setpaybtn();
+        sp.setTestWalletprocced();
 
         // Scroll to the bottom
         scroll.scrollTwithpercentAction(1);
