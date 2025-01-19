@@ -28,7 +28,7 @@ public class TC_UserStockUpdate_01 extends BaseClass {
 		
 		us.searchItem("Agasi");
 		
-		us.enterStock("30");
+		us.enterStockOnefield("30");
 		
 		us.clickUpload();
 		
@@ -58,7 +58,7 @@ public class TC_UserStockUpdate_01 extends BaseClass {
 		
 		
 		
-		us.enterValuesAll("10");
+		us.enterAllStockQuantity("10");
 		
 		us.ClickBulkUpload();
 		
@@ -95,7 +95,7 @@ public class TC_UserStockUpdate_01 extends BaseClass {
 			
 			
 			
-			us.enterValuesAll("10");
+			us.enterAllStockQuantity("10");
 			
 			us.ClickBulkUpload();
 			
@@ -129,7 +129,7 @@ public class TC_UserStockUpdate_01 extends BaseClass {
 			
 			us.clickWarehouseResult();
 			
-			us.enterValuesAll2();
+			us.enterMismatchValues();
 			
 			us.ClickBulkUpload();
 			

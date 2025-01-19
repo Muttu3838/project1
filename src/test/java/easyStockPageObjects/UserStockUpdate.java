@@ -128,7 +128,7 @@ public class UserStockUpdate extends AndroidActions {
 		 ItemSearchfield.sendKeys(ItemName);
 		}
 	 
-	 public void enterStock(String StockQuantity)
+	 public void enterStockOnefield(String StockQuantity)
 		{
 		 waitForElementTobeClickable(StockValueField, driver);
 		 StockValueField.click();
@@ -138,7 +138,7 @@ public class UserStockUpdate extends AndroidActions {
 	
 	      
 	 
-	 public void enterAllVerifications(String StockQuantity) throws InterruptedException {
+	 private void enterStockQuantity(String StockQuantity) throws InterruptedException {
 		 
 		 System.out.println("First Iteration Started");
 		 
@@ -270,12 +270,11 @@ public class UserStockUpdate extends AndroidActions {
 	    
 
 	    
-public void enterAllValidation() throws InterruptedException {
+         private void enterAllMismatchValues() throws InterruptedException {
 			
 			System.out.println("First Iteration Started");
 			 
 			
-
 			for (WebElement element : StockValueFields2){
 			     try {
 			        
@@ -396,16 +395,16 @@ public void enterAllValidation() throws InterruptedException {
 	    
 	
 	  
-	  public void enterValuesAll(String StockQuantity) throws InterruptedException
+	  public void enterAllStockQuantity(String StockQuantity) throws InterruptedException
 		{
 			//waitForElementTobeClickable(StockValueField, driver);
-			enterAllVerifications(StockQuantity);
+			enterStockQuantity(StockQuantity);
 		}
 	  
-	  public void enterValuesAll2() throws InterruptedException
+	  public void enterMismatchValues() throws InterruptedException
 		{
 			//waitForElementTobeClickable(StockValueField, driver);
-			enterAllValidation();
+			enterAllMismatchValues();
 		}
 	 
 	 public void clickUpload()
