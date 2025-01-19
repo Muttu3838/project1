@@ -72,6 +72,9 @@ public class UserStockUpdate extends AndroidActions {
 	 @AndroidFindBy(xpath = "//android.widget.CheckBox[@content-desc=\"Warehouses\"]/following-sibling::android.view.View[1]/android.view.View[1]//android.view.View")
 	 private List<WebElement> Warehouses;
 	 
+	 @AndroidFindBy(xpath = "//android.widget.CheckBox[@content-desc=\"Warehouses\"]/following-sibling::android.view.View[1]/android.view.View[1]//android.view.View[not(contains(@content-desc, '0.00'))]")
+	 private List<WebElement> mismatchWarehouses;
+	 
 	 @FindBy(xpath  = "//android.widget.Button[@content-desc=\"Back\"]/following-sibling::android.widget.Button[2]")
 	 private WebElement BulkUploadbtn;
 	 
@@ -108,7 +111,7 @@ public class UserStockUpdate extends AndroidActions {
 	 
 	 public void searchWarehouse(String warehousename) throws InterruptedException
 		{   
-		 Thread.sleep(2000);
+		  Thread.sleep(2000);
 			waitForElementTobeClickable(Searchwarehouse, driver);
 			Searchwarehouse.clear();
 			Searchwarehouse.click();
@@ -268,6 +271,42 @@ public class UserStockUpdate extends AndroidActions {
 	    }
 	    
 	    
+	 // Find all elements with content-desc for warehouse fetch
+		 public List<String> getAllFirstTwoWordsofMismatchWarehouse() {
+		        List<String> namesList = new ArrayList<>();
+		        try {
+		           
+		            for (WebElement element : mismatchWarehouses) {
+		            	waitForElementToAppear(element, driver);
+		                String firstTwoWords = getFirstTwoWordsMismatchWarehouse(element);
+		                if (!firstTwoWords.isEmpty()) {
+		                    namesList.add(firstTwoWords);
+		                }
+		            }
+		        } catch (Exception e) {
+		            System.out.println("Error finding elements: " + e.getMessage());
+		        }
+		        return namesList;
+		    }
+
+		    private String getFirstTwoWordsMismatchWarehouse(WebElement element) {
+		        try {
+		            String contentDesc = element.getDomAttribute("content-desc");
+		            if (contentDesc != null && !contentDesc.isEmpty()) {
+		                String[] words = contentDesc.trim().split("\\s+");
+		                if (words.length >= 2) {
+		                    return words[0] + " " + words[1];
+		                } else if (words.length == 1) {
+		                    return words[0];
+		                }
+		            }
+		        } catch (Exception e) {
+		            System.out.println("Error getting content description: " + e.getMessage());
+		        }
+		        return "";
+		    }
+	    
+	    
 
 	    
          private void enterAllMismatchValues() throws InterruptedException {
@@ -281,6 +320,8 @@ public class UserStockUpdate extends AndroidActions {
 			         String  StockQuantity=extractQuantityList(MissmatchFields.getFirst());
 			         // Perform actions on both elements
 			         //waitForElementToAppear(stockElement, driver);
+			         String itemName=getFirstTwoWords(element);
+			         String log="Correcting Item "+itemName+" with Quantity "+StockQuantity;
 			         element.click();
 			         element.sendKeys(StockQuantity);
                      uploadbtn.click();
@@ -307,6 +348,9 @@ public class UserStockUpdate extends AndroidActions {
 		     				     try {
 		     				    	waitForElementTobeDisappear(successmsg, driver);
 		     				         String  StockQuantity=extractQuantityList(MissmatchFields.getFirst());
+		     				         
+		     				         String itemName=getFirstTwoWords(element);
+		     				         String log="Correcting Item "+itemName+" with Quantity "+StockQuantity;
 		     				         // Perform actions on both elements
 		     				         //waitForElementToAppear(stockElement, driver);
 		     				         element.click();
@@ -346,6 +390,9 @@ public class UserStockUpdate extends AndroidActions {
 	     				     try {
 	     				    	waitForElementTobeDisappear(successmsg, driver);
 	     				         String  StockQuantity=extractQuantityList(MissmatchFields.getFirst());
+	     				         
+	     				         String itemName=getFirstTwoWords(element);
+	     				         String log="Correcting Item "+itemName+" with Quantity "+StockQuantity;
 	     				         // Perform actions on both elements
 	     				         //waitForElementToAppear(stockElement, driver);
 	     				         element.click();
@@ -363,6 +410,107 @@ public class UserStockUpdate extends AndroidActions {
 		        		
 		            }
 	    
+         //Updated version of previous enterAllMissmatchValues method
+         private String enterAllMismatchValues2() throws InterruptedException { 
+        	    StringBuilder logBuilder = new StringBuilder();
+        	    
+
+        	    // Process the first set of elements (StockValueFields2)
+        	    for (WebElement element : StockValueFields2) {
+        	        try {
+        	            String StockQuantity = extractQuantityList(MissmatchFields.getFirst());
+        	            String itemName = getFirstTwoWords(element);
+        	            String log = "Correcting Item " + itemName + " with Quantity " + StockQuantity;
+        	            System.out.println(log);
+        	            logBuilder.append(log).append("\n");
+
+        	            // Perform actions on both elements
+        	            element.click();
+        	            element.sendKeys(StockQuantity);
+        	            uploadbtn.click();
+        	            waitForElementTobeDisappear(successmsg, driver);
+
+        	        } catch (Exception e) {
+        	            // Handle exception, continue to next iteration
+        	            logBuilder.append("Error correcting item: ").append(e.getMessage()).append("\n");
+        	            continue;
+        	        }
+        	    }
+          
+        	    boolean canScrollMore = true;
+        	    while (canScrollMore) {
+        	        try {
+        	            logBuilder.append("Second Iteration Started\n");
+
+        	            // Re-fetch updated lists of elements (if required)
+        	            for (WebElement element : StockValueFields2) {
+        	                try {
+        	                    waitForElementTobeDisappear(successmsg, driver);
+        	                    String StockQuantity = extractQuantityList(MissmatchFields.getFirst());
+        	                    String itemName = getFirstTwoWords(element);
+        	                    String log = "Correcting Item " + itemName + " with Quantity " + StockQuantity;
+        	                    System.out.println(log);
+        	                    logBuilder.append(log).append("\n");
+
+        	                    // Perform actions on both elements
+        	                    element.click();
+        	                    element.sendKeys(StockQuantity);
+        	                    uploadbtn.click();
+
+        	                } catch (Exception e) {
+        	                    // Handle exception, continue to next iteration
+        	                    logBuilder.append("Error correcting item: ").append(e.getMessage()).append("\n");
+        	                    continue;
+        	                }
+        	            }
+        	          
+        	            // Check if the first element is still displayed to stop scrolling
+        	            if (StockValueFields2.getFirst().isDisplayed()) {
+        	               return logBuilder.toString();  // Return log when iteration is complete
+        	            }
+
+        	        } catch (Exception e) {
+        	            // Element not visible yet, continue scrolling
+        	            canScrollMore = (Boolean) driver.executeScript("mobile: scrollGesture", 
+        	                ImmutableMap.of(
+        	                    "left", 100,
+        	                    "top", 500,
+        	                    "width", 200,
+        	                    "height", 300,
+        	                    "direction", "down",
+        	                    "percent", 5
+        	                ));
+        	        }
+        	    }
+
+        	   /* logBuilder.append("Third Iteration Started\n");
+
+        	    // Perform third iteration after scroll ends
+        	    if (!canScrollMore) {
+        	        scrollToEndAction();
+        	        for (WebElement element : StockValueFields2) {
+        	            try {
+        	                waitForElementTobeDisappear(successmsg, driver);
+        	                String StockQuantity = extractQuantityList(MissmatchFields.getFirst());
+        	                String itemName = getFirstTwoWords(element);
+        	                String log = "Correcting Item " + itemName + " with Quantity " + StockQuantity;
+        	                logBuilder.append(log).append("\n");
+
+        	                // Perform actions on both elements
+        	                element.click();
+        	                element.sendKeys(StockQuantity);
+        	                uploadbtn.click();
+
+        	            } catch (Exception e) {
+        	                // Handle exception, continue to next iteration
+        	                logBuilder.append("Error correcting item: ").append(e.getMessage()).append("\n");
+        	                continue;
+        	            }
+        	        }
+        	    } */
+
+        	    return logBuilder.toString();  // Return all logs at the end
+        	}
 
 	    
 
@@ -401,10 +549,12 @@ public class UserStockUpdate extends AndroidActions {
 			enterStockQuantity(StockQuantity);
 		}
 	  
-	  public void enterMismatchValues() throws InterruptedException
+	  public String enterMismatchValues() throws InterruptedException
 		{
 			//waitForElementTobeClickable(StockValueField, driver);
-			enterAllMismatchValues();
+			enterAllMismatchValues2();
+			String log=enterAllMismatchValues2();
+			return log;
 		}
 	 
 	 public void clickUpload()
@@ -417,6 +567,12 @@ public class UserStockUpdate extends AndroidActions {
 		{
 			
 			return getAllFirstTwoWords();
+		}
+	 
+	 public List<String> mismatchWarehouseNames()
+		{
+			
+			return getAllFirstTwoWordsofMismatchWarehouse();
 		}
 	 
 	 public  void ClickBulkUpload()
