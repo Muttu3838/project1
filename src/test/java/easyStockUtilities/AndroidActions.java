@@ -35,7 +35,7 @@ public class AndroidActions extends AppiumUtils{
 		do
 		{
 		 canScrollMore = (Boolean) ((JavascriptExecutor) driver).executeScript("mobile: scrollGesture", ImmutableMap.of(
-			    "left", 100, "top", 100, "width", 200, "height", 200,
+			    "left", 100, "top", 500, "width", 200, "height", 500,
 			    "direction", "down",
 			    "percent", 1.0
 			    
