@@ -11,14 +11,18 @@ import easyStockPageObjects.UserStockUpdate;
 public class TC_UpdateMismatch_001 extends BaseClass  {
 	
 	
+	public TC_UpdateMismatch_001() {
+        // Call this in the constructor to skip login for this test class
+        setSkipProfileClick(true);
+    }
+	
 	@Test(priority = 1)
 	public void stockUpadteMissmatchAll() throws InterruptedException
 	{
 		UserStockUpdate us=new UserStockUpdate(driver);
 		LoginPage lp=new LoginPage(driver);
 		
-		lp.FinalBack();
-		logger.info("Clicked Final button Again to click verify");
+		
 		
 		us.clickVerify();
 		logger.info("Clicked on Verify button");
