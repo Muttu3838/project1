@@ -3,8 +3,12 @@ package easyStockPageObjects;
 
 
 
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,6 +27,7 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 public class UserStockUpdate extends AndroidActions {
 	
 	private FlutterAndroidDriver driver;
+	
 	
 	 public UserStockUpdate(FlutterAndroidDriver driver)
 	{   super(driver);
@@ -138,19 +143,20 @@ public class UserStockUpdate extends AndroidActions {
 		 StockValueField.sendKeys(StockQuantity);
 		}
 	 
-	
-	      
+	 	      
 	 
-	 private void enterStockQuantity(String StockQuantity) throws InterruptedException {
+	 private void enterStockQuantity() throws InterruptedException {
 		 
 		 System.out.println("First Iteration Started");
 		 
 		 for (WebElement element : StockValueFields) {
 	                     try {
 	                	
+	                    	 String rmnumber = generateRandomNumberAsString(-50, 50);
+	             			
 	                    	waitForElementToAppear(element, driver); 
 	                    	element.click();
-	                    	element.sendKeys(StockQuantity);
+	                    	element.sendKeys(rmnumber);
 	                    	uploadbtn.click();
 	                        
 	                        /*Thread.sleep(200);
@@ -176,10 +182,13 @@ public class UserStockUpdate extends AndroidActions {
 	     	        	
 	     	        	for (WebElement element : StockValueFields) {
 		                     try {
+		                    	    
+		                    	 String rmnumber = generateRandomNumberAsString(-50, 50);
+		                    	 
 		                	    waitForElementTobeDisappear(successmsg, driver);
 		                    	//waitForElementToAppear(element, driver); 
 		                    	element.click();
-		                    	element.sendKeys(StockQuantity);
+		                    	element.sendKeys(rmnumber);
 		                    	uploadbtn.click();
 		                     
 		                     } catch (Exception e) {
@@ -210,9 +219,11 @@ public class UserStockUpdate extends AndroidActions {
 	         		for (WebElement element : StockValueFields) {
 	                     try {
 	                	
+	                    	 String rmnumber = generateRandomNumberAsString(-50, 50);
+	                    	 
 	                    	waitForElementToAppear(element, driver); 
 	                    	element.click();
-	                    	element.sendKeys(StockQuantity);
+	                    	element.sendKeys(rmnumber);
 	                    	uploadbtn.click();
 	                        
 	                        /*Thread.sleep(200);
@@ -280,6 +291,7 @@ public class UserStockUpdate extends AndroidActions {
 		            	waitForElementToAppear(element, driver);
 		                String firstTwoWords = getFirstTwoWordsMismatchWarehouse(element);
 		                if (!firstTwoWords.isEmpty()) {
+		                	
 		                    namesList.add(firstTwoWords);
 		                }
 		            }
@@ -307,7 +319,7 @@ public class UserStockUpdate extends AndroidActions {
 		    }
 	    
 	    
-
+        //enterAllMismatchValues First Technique
 	    
          private void enterAllMismatchValues() throws InterruptedException {
 			
@@ -325,6 +337,7 @@ public class UserStockUpdate extends AndroidActions {
 			         element.click();
 			         element.sendKeys(StockQuantity);
                      uploadbtn.click();
+                     System.out.println(log);
 			         waitForElementTobeDisappear(successmsg, driver);
 			         
 			     } catch (Exception e) {
@@ -356,7 +369,7 @@ public class UserStockUpdate extends AndroidActions {
 		     				         element.click();
 		     				         element.sendKeys(StockQuantity);
 		     	                     uploadbtn.click();
-		     				        
+		     	                     System.out.println(log);
 		     				         
 		     				     } catch (Exception e) {
 		     				         // Handle exception, continue to next iteration
@@ -398,7 +411,7 @@ public class UserStockUpdate extends AndroidActions {
 	     				         element.click();
 	     				         element.sendKeys(StockQuantity);
 	     	                     uploadbtn.click();
-	     	
+	     	                    System.out.println(log);
 	     				         
 	     				     } catch (Exception e) {
 	     				         // Handle exception, continue to next iteration
@@ -410,67 +423,92 @@ public class UserStockUpdate extends AndroidActions {
 		        		
 		            }
 	    
-         //Updated version of previous enterAllMissmatchValues method
+         //Updated version  of previous enterAllMissmatchValues method
+         //enterAllMismatchValues Second Technique
          private String enterAllMismatchValues2() throws InterruptedException { 
-        	    StringBuilder logBuilder = new StringBuilder();
-        	    
-
-        	    // Process the first set of elements (StockValueFields2)
+        	
+        	 StringBuilder logBuilder = new StringBuilder();
+        	 logBuilder.append("Starting mismatch values correction process\n");
+             logBuilder.append("Beginning first iteration\n");
+              
+              
+              // First Iteration
+              
         	    for (WebElement element : StockValueFields2) {
         	        try {
         	            String StockQuantity = extractQuantityList(MissmatchFields.getFirst());
-        	            String itemName = getFirstTwoWords(element);
-        	            String log = "Correcting Item " + itemName + " with Quantity " + StockQuantity;
-        	            System.out.println(log);
-        	            logBuilder.append(log).append("\n");
-
+        	            String itemName = getFirstTwoWords(MissmatchFields.getFirst());
+        	            String ActionLog = "Corrected Item " + itemName + " with Quantity " + StockQuantity;
+        	            System.out.println(ActionLog);
+        	         
         	            // Perform actions on both elements
         	            element.click();
         	            element.sendKeys(StockQuantity);
         	            uploadbtn.click();
+        	            
+        	            logBuilder.append(ActionLog).append("\n");;
+        	            
         	            waitForElementTobeDisappear(successmsg, driver);
+        	            
+        	            
 
         	        } catch (Exception e) {
         	            // Handle exception, continue to next iteration
-        	            logBuilder.append("Error correcting item: ").append(e.getMessage()).append("\n");
-        	            continue;
+        	        	 String errorMsg = "Error correcting item: " + e.getMessage();
+        	              
+        	                logBuilder.append(errorMsg).append("\n");;
+        	                continue;
         	        }
         	    }
-          
-        	    boolean canScrollMore = true;
-        	    while (canScrollMore) {
-        	        try {
-        	            logBuilder.append("Second Iteration Started\n");
-
-        	            // Re-fetch updated lists of elements (if required)
+        	  
+        	  
+        	    
+   // Second Iteration
+   
+    logBuilder.append("Second Iteration Started\n");
+                
+     boolean canScrollMore = true;
+       while (canScrollMore) {
+        	   try {
+        	           
+                       // Re-fetch updated lists of elements (if required)
         	            for (WebElement element : StockValueFields2) {
         	                try {
         	                    waitForElementTobeDisappear(successmsg, driver);
         	                    String StockQuantity = extractQuantityList(MissmatchFields.getFirst());
         	                    String itemName = getFirstTwoWords(element);
-        	                    String log = "Correcting Item " + itemName + " with Quantity " + StockQuantity;
-        	                    System.out.println(log);
-        	                    logBuilder.append(log).append("\n");
+        	                    String ActionLog = "Correcting Item " + itemName + " with Quantity " + StockQuantity;
+        	                    System.out.println(ActionLog);
+        	                    
+                                
 
         	                    // Perform actions on both elements
         	                    element.click();
         	                    element.sendKeys(StockQuantity);
         	                    uploadbtn.click();
+        	                    logBuilder.append(ActionLog).append("\n");
+        	                    
+        	                   
+        	                   
 
         	                } catch (Exception e) {
         	                    // Handle exception, continue to next iteration
-        	                    logBuilder.append("Error correcting item: ").append(e.getMessage()).append("\n");
+        	                	String errorMsg = "Error correcting item in second iteration: " + e.getMessage();
+                               
+                                logBuilder.append(errorMsg);
         	                    continue;
         	                }
         	            }
-        	          
+        	           
         	            // Check if the first element is still displayed to stop scrolling
         	            if (StockValueFields2.getFirst().isDisplayed()) {
-        	               return logBuilder.toString();  // Return log when iteration is complete
+        	            	
+                            return logBuilder.toString(); // Return log when iteration is complete
         	            }
 
         	        } catch (Exception e) {
         	            // Element not visible yet, continue scrolling
+        	        	logBuilder.append("Attempting to scroll down").append("\n");
         	            canScrollMore = (Boolean) driver.executeScript("mobile: scrollGesture", 
         	                ImmutableMap.of(
         	                    "left", 100,
@@ -480,6 +518,9 @@ public class UserStockUpdate extends AndroidActions {
         	                    "direction", "down",
         	                    "percent", 5
         	                ));
+        	            if (!canScrollMore) {
+        	            	logBuilder.append("Reached end of scrollable area").append("\n");
+                        }
         	        }
         	    }
 
@@ -543,10 +584,11 @@ public class UserStockUpdate extends AndroidActions {
 	    
 	
 	  
-	  public void enterAllStockQuantity(String StockQuantity) throws InterruptedException
+	  public void enterAllStockQuantity() throws InterruptedException
 		{
+		      
 			//waitForElementTobeClickable(StockValueField, driver);
-			enterStockQuantity(StockQuantity);
+			enterStockQuantity();
 		}
 	  
 	  public String enterMismatchValues() throws InterruptedException
