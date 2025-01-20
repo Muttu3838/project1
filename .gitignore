@@ -1,6 +1,8 @@
 log/*
+Screenshots/*
 reports/*
 test-output/
 !test-output/testng-failed.xml
 *.log
 /test-output/Default suite
+/target

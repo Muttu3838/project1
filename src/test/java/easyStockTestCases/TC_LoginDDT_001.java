@@ -38,23 +38,23 @@ public class TC_LoginDDT_001 extends BaseClass {
         }
     }
     
-    private void performLoginSteps(LoginPage lp, AndroidActions action, String user, String pwd) throws InterruptedException {
+    public void performLoginSteps(LoginPage lp, AndroidActions action, String user, String pwd) throws InterruptedException {
         // Username entry
         //lp.setUserNameclick();
         //lp.setUserNameclear();
         lp.setUserName(user);
-        logger.info("Username entered");
+        System.out.println("Username entered");
         
         // Password entry
         //lp.setPasswordClick();
         //lp.setPasswordClear();
         lp.setPassword(pwd);
-        logger.info("Password entered");
+        System.out.println("Password entered");
         
         // Submit login
         action.scrollTwithpercentAction(1);
         lp.clicksubmit();
-        logger.info("Login button clicked");
+        System.out.println("Login button clicked");
         
         
     }

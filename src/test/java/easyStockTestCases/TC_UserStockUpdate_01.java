@@ -1,20 +1,34 @@
 package easyStockTestCases;
 
+import java.io.IOException;
 import java.util.List;
+
+
+import org.sikuli.script.FindFailed;
 import org.testng.annotations.Test;
 
 import easyStockPageObjects.LoginPage;
 import easyStockPageObjects.UserStockUpdate;
+import easyStockUtilities.AndroidActions;
 
 public class TC_UserStockUpdate_01 extends BaseClass {
 	
+	
+	public TC_UserStockUpdate_01() {
+        // Call this in the constructor to skip login for this test class
+        setSkipLogin(true);
+        setSkipProfileClick(true);
+    }
+	
 	@Test(enabled = false)
-	public void stockVerify() throws InterruptedException
+	public void stockVerify() throws InterruptedException, FindFailed, IOException
 	{
 		UserStockUpdate us=new UserStockUpdate(driver);
+		TC_LoginDDT_001 la=new TC_LoginDDT_001();
 		LoginPage lp=new LoginPage(driver);
-		
-		lp.FinalBack();
+		AndroidActions Actions=new AndroidActions(driver);
+		la.performLoginSteps(lp,Actions , usernumber, password);
+		//lp.FinalBack();
 		
 		us.clickVerify();
 		
@@ -42,9 +56,12 @@ public class TC_UserStockUpdate_01 extends BaseClass {
 	public void stockVerifywithWarehouseName() throws InterruptedException
 	{
 		UserStockUpdate us=new UserStockUpdate(driver);
+		TC_LoginDDT_001 la=new TC_LoginDDT_001();
 		LoginPage lp=new LoginPage(driver);
+		AndroidActions Actions=new AndroidActions(driver);
+		la.performLoginSteps(lp,Actions , usernumber, password);
 		
-		lp.FinalBack();
+		//lp.FinalBack();
 		
 		us.clickVerify();
 		
@@ -58,7 +75,7 @@ public class TC_UserStockUpdate_01 extends BaseClass {
 		
 		
 		
-		us.enterAllStockQuantity("10");
+		us.enterAllStockQuantity();
 		
 		us.ClickBulkUpload();
 		
@@ -73,9 +90,11 @@ public class TC_UserStockUpdate_01 extends BaseClass {
 	public void stockVerifyAllWarehouses() throws InterruptedException
 	{
 		UserStockUpdate us=new UserStockUpdate(driver);
+		TC_LoginDDT_001 la=new TC_LoginDDT_001();
 		LoginPage lp=new LoginPage(driver);
-		
-		lp.FinalBack();
+		AndroidActions Actions=new AndroidActions(driver);
+		la.performLoginSteps(lp,Actions , usernumber, password);
+		//lp.FinalBack();
 		
 		us.clickVerify();
 		
@@ -93,9 +112,7 @@ public class TC_UserStockUpdate_01 extends BaseClass {
 			
 			us.clickWarehouseResult();
 			
-			
-			
-			us.enterAllStockQuantity("10");
+			us.enterAllStockQuantity();
 			
 			us.ClickBulkUpload();
 			
@@ -104,51 +121,7 @@ public class TC_UserStockUpdate_01 extends BaseClass {
         }
 		
 		
-	@Test(priority = 4)
-	public void stockValidationAllWarehouses() throws InterruptedException
-	{
-		UserStockUpdate us=new UserStockUpdate(driver);
-		LoginPage lp=new LoginPage(driver);
-		
-		lp.FinalBack();
-		logger.info("Clicked Final button Again to click verify");
-		
-		us.clickVerify();
-		logger.info("Clicked on Verify button");
-		
-		us.clickBrach();
-		logger.info("Clicked on Branch Dropdown");
-		
-		us.selectbranch(branchnm);
-		logger.info("Selected Branch "+ branchnm);
-		
-		List<String> WarehouseNames=us.mismatchWarehouseNames();
-		
-		
-		for (String names : WarehouseNames) {
-			
-			logger.info("Updating Mismatched Items of warehouse "+names);
-			
-			us.searchWarehouse(names);  
-			logger.info("Searched warehouse as "+names);
-			
-			us.clickWarehouseResult();
-			logger.info("Clicked on warehouse "+names);
-			
-			us.enterMismatchValues();
-		   String log=us.enterMismatchValues();
-		   logger.info(log);
-			
-			us.ClickBulkUpload();
-			logger.info("Clicked on Bulk Upload");
-			
-			us.ClickBack();
-			logger.info("Clicked on Back Button");
-			
-            }
-        }
-		
-		
+	
 		
 		
 		
