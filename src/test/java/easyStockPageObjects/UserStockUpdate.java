@@ -476,7 +476,7 @@ public class UserStockUpdate extends AndroidActions {
         	                try {
         	                    waitForElementTobeDisappear(successmsg, driver);
         	                    String StockQuantity = extractQuantityList(MissmatchFields.getFirst());
-        	                    String itemName = getFirstTwoWords(element);
+        	                    String itemName = getFirstTwoWords(MissmatchFields.getFirst());
         	                    String ActionLog = "Correcting Item " + itemName + " with Quantity " + StockQuantity;
         	                    System.out.println(ActionLog);
         	                    
