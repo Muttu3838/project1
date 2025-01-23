@@ -36,7 +36,7 @@ public class TC_StockSchedule_001 extends BaseClass {
 	}
 	
 	
-	@Test(priority = 0)
+	@Test(priority = 3)
 	public void Daily() throws InterruptedException
 	{
 		StockSchedulingPage ss=new StockSchedulingPage(driver);
@@ -46,7 +46,7 @@ public class TC_StockSchedule_001 extends BaseClass {
 		ss.clickAllDailyElements();
 	}
 	
-	@Test(priority = 1)
+	@Test(priority = 2)
     public void Weekly() throws InterruptedException {
 		
 		StockSchedulingPage ss=new StockSchedulingPage(driver);
@@ -68,7 +68,7 @@ public class TC_StockSchedule_001 extends BaseClass {
 		
 	}
 	
-	 @Test(priority = 2)
+	 @Test(priority = 1)
      public void Monthly() throws InterruptedException {
 		
 		StockSchedulingPage ss=new StockSchedulingPage(driver);
@@ -90,7 +90,7 @@ public class TC_StockSchedule_001 extends BaseClass {
 		
 	}
 	 
-	 @Test(priority = 3)
+	 @Test(priority = 0)
      public void Yearly() throws InterruptedException {
 		
 		StockSchedulingPage ss=new StockSchedulingPage(driver);

@@ -19,6 +19,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.asserts.SoftAssert;
 
 import easyStockPageObjects.LoginPage;
@@ -27,6 +28,11 @@ import easyStockUtilities.ReadConfig;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.flutter.android.FlutterAndroidDriver;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import java.util.List;
+import java.util.Map;
 
 
 public class BaseClass extends AppiumUtils {
@@ -87,7 +93,7 @@ public class BaseClass extends AppiumUtils {
 	 
 	    options = new UiAutomator2Options();
 		                                   //Samsung SM-M36B API 34 , Nothing A015 API 34  ,OPPO CPH2239 API 20, Xiaomi 23028RN4DI
-		options.setCapability("deviceName", "Xiaomi 23028RN4DI"); //("Pixel 9 API 35");Pixel 9 pro API 33
+		options.setCapability("deviceName", "Xiaomi 23028RNCAI"); //("Pixel 9 API 35");Pixel 9 pro API 33
 		options.setCapability("app", System.getProperty("user.dir") + "/src/test/java/resources/ES_1652_1601_MS.apk");
 		//options.setCapability("app", "E://Product Management//EasyStock_V1//src//test//java//resources//ES_1100_0301_MWBS.apk");
 		options.setAutoGrantPermissions(true);
@@ -262,6 +268,20 @@ public class BaseClass extends AppiumUtils {
 		
 		
 	}
+	
+	 @DataProvider(name = "xmlData")
+	    public Object[][] getXmlData(String fileName) {
+		 String filePath = System.getProperty("user.dir") + "/src/test/java/easyStockTestData/"+fileName;
+	        List<Map<String, String>> dataList = AppiumUtils.readXmlData(filePath);
+
+	        // Convert List<Map> to Object[][]
+	        Object[][] dataArray = new Object[dataList.size()][1];
+	        for (int i = 0; i < dataList.size(); i++) {
+	            dataArray[i][0] = dataList.get(i);
+	        }
+
+	        return dataArray;
+	    }
 	
 
 }
