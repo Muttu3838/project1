@@ -8,6 +8,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.asserts.SoftAssert;
 
 //import com.fasterxml.jackson.core.type.TypeReference;
 //import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,6 +16,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
+import org.w3c.dom.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import java.util.*;
 
 public abstract class AppiumUtils {
 
@@ -22,6 +34,25 @@ public abstract class AppiumUtils {
 	
 	
 	private static final Random random = new Random();
+	protected static SoftAssert softAssert;
+	
+	// Helper method to get SoftAssert instance
+    protected SoftAssert getSoftAssert() {
+    	softAssert = new SoftAssert();
+        return softAssert;
+    }
+    
+    // Method to verify soft assertions
+    protected void assertAll() {
+        if (softAssert != null) {
+            softAssert.assertAll();
+        }
+    }
+    
+    // Reset soft assert (useful between test methods)
+    protected void resetSoftAssert() {
+        softAssert = new SoftAssert();
+    }
 	
 	
 	// Generates a random integer between min and max (inclusive)
@@ -136,9 +167,63 @@ public abstract class AppiumUtils {
 		wait.pollingEvery(Duration.ofMillis(500));
 	}
 	
-	
+	//Utility Methods for XML Files
+	 public static List<Map<String, String>> readXmlData(String filePath) {
+	        List<Map<String, String>> dataList = new ArrayList<>();
+
+	        try {
+	            File file = new File(filePath);
+	            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	            DocumentBuilder builder = factory.newDocumentBuilder();
+	            Document document = builder.parse(file);
+
+	            document.getDocumentElement().normalize();
+	            NodeList rows = document.getElementsByTagName("Row");
+
+	            for (int i = 0; i < rows.getLength(); i++) {
+	                Node node = rows.item(i);
+	                if (node.getNodeType() == Node.ELEMENT_NODE) {
+	                    Element element = (Element) node;
+	                    Map<String, String> dataMap = new HashMap<>();
+
+	                    NodeList childNodes = element.getChildNodes();
+	                    for (int j = 0; j < childNodes.getLength(); j++) {
+	                        Node childNode = childNodes.item(j);
+	                        if (childNode.getNodeType() == Node.ELEMENT_NODE) {
+	                            Element childElement = (Element) childNode;
+	                            dataMap.put(childElement.getNodeName(), childElement.getTextContent());
+	                        }
+	                    }
+	                    dataList.add(dataMap);
+	                }
+	            }
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+
+	        return dataList;
+	    }	
 		
-		
+	 
+	 public static List<String> readAsciiData(String filePath) {
+	        List<String> dataList = new ArrayList<>();
+
+	        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+	            String line;
+	            while ((line = br.readLine()) != null) {
+	                dataList.add(line.trim());
+	            }
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+
+	        return dataList;
+	    }
+	 
+	 
+	 //Methods to get Opening or Closing Stock
+	 
 		
 	
 	

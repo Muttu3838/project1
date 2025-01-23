@@ -12,6 +12,8 @@
   
     <classes>
     
+    <class name="easyStockTestCases.TC_StockSchedule_001"/>
+    
       <class name="easyStockTestCases.TC_Upload_002">
         <methods>
           <include name="uploadOpeningStock"/>
@@ -22,8 +24,6 @@
         </methods>
       </class> <!-- easyStockTestCases.TC_Upload_002 -->
       
-      <class name="easyStockTestCases.TC_UserStockUpdate_01"/>
-      
       <class name="easyStockTestCases.TC_Upload_002">
         <methods>
           <include name="uploadClosingStock"/>
@@ -33,6 +33,10 @@
           <include name="afterMethod"/>
         </methods>
       </class> <!-- easyStockTestCases.TC_Upload_002 -->
+      
+      <class name="easyStockTestCases.TC_FileVerification_001"/>
+      
+      <class name="easyStockTestCases.TC_UserStockUpdate_01"/>
       
       <class name="easyStockTestCases.TC_UpdateMismatch_001"/>
     

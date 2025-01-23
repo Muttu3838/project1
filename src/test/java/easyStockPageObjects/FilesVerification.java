@@ -1,8 +1,12 @@
+
 package easyStockPageObjects;
 
 
 
 
+
+import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.fail;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,12 +34,12 @@ import io.appium.java_client.flutter.android.FlutterAndroidDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
-public class UserStockUpdate extends AndroidActions {
+public class FilesVerification extends AndroidActions {
 	
 	private FlutterAndroidDriver driver;
 	
 	
-	 public UserStockUpdate(FlutterAndroidDriver driver)
+	 public FilesVerification(FlutterAndroidDriver driver)
 	{   super(driver);
 		this.driver=driver;
 		PageFactory.initElements(new AppiumFieldDecorator(this.driver), this);
@@ -142,7 +146,6 @@ public class UserStockUpdate extends AndroidActions {
 	 public void searchItem(String ItemName)
 		{
 		 waitForElementTobeClickable(ItemSearchfield, driver);
-		 
 		 ItemSearchfield.click();
 		 ItemSearchfield.clear();
 		 ItemSearchfield.sendKeys(ItemName);
@@ -154,45 +157,60 @@ public class UserStockUpdate extends AndroidActions {
 		 StockValueField.click();
 		 StockValueField.sendKeys(StockQuantity);
 		}
-	 public boolean isenterStockOnefieldDisplayed()
-		{
-		return isElementPresent(StockValueField);
-		}
-	 public void clearField()
-		{
-		 ItemSearchfield.clear();
-		}
 	 
 	 	      
 	 
-	 private void enterStockQuantity() throws InterruptedException, IOException {
+	 private void enterStockQuantity(String warehouse,List<String> validationErrors) throws InterruptedException, IOException {
 		 
 		 
-		 InventoryFileParser parser = new InventoryFileParser("Dm Opening Stk.txt");
+		 InventoryFileParser parser = new InventoryFileParser("Dm Closing Stk.txt");
 		
 		 List<String> allItems = parser.getAllItemNames();
-	        
+		  
 		
 		 for (WebElement element : StockValueFields) {
 			 
 	                     try {
 	                	 
-	                    	 //String itemNamefromUI = getFirstTwoWords(ItemNameFields.getFirst());
+	                    	 String itemNamefromUI = getFirstTwoWords(ItemNameFields.getFirst());
 	                    	 String itemNamefromUI1 = getItemName(ItemNameFields.getFirst());
-	                    	 
+	                    	 Double QuantityfromUI=getValueAfterSlash(ItemNameFields.getFirst());
+	                    	
 	                    	 // Find a partial match in allItemsName
 	                         Optional<String> matchingItem = allItems.stream()
 	                             .filter(item -> item.contains(itemNamefromUI1)) // Partial match logic
 	                             .findFirst();
 	                         
-	                         if (matchingItem.isPresent()) {
-	                             System.out.println("File Closing stock Contains Item: " + itemNamefromUI1);
+	                        /* if (matchingItem.isPresent()) {
+	                             System.out.println("File Opening stock Contains Item: " + itemNamefromUI);
 	                             System.out.println("Matching Item in file: " + matchingItem.get());
 	                         } else {
-	                             System.out.println("File Closing stock Does Not Contain Item: " + itemNamefromUI1);
+	                             System.out.println("File Opening stock Does Not Contain Item: " + itemNamefromUI);
+	                         } */
+	                         
+	                         // Get quantity details if matched
+	                         if (matchingItem.isPresent()) {
+	                        	 
+	                             double totalQty = parser.getQuantityForItemAndWarehouse(matchingItem.get(),warehouse);
+	                             //double totalQty = details.getTotalQuantity();
+	                             //System.out.println("Quantity for the " + matchingItem.get() + " is " + totalQty);
+	                             if(QuantityfromUI.equals(totalQty))
+		                         {
+	                            	 System.out.println("Quantity from the UI"+"(*"+QuantityfromUI+"*)"+" for the Item " + matchingItem.get() + " is "+" matching with Closing Stock Quantity " + "(*"+totalQty+"*)"+" in "+warehouse);
+	                            	 String msg="Quantity from the UI"+"(*"+QuantityfromUI+"*)"+" for the Item " + matchingItem.get() + " is "+" matching with Closing Stock Quantity " + "(*"+totalQty+"*)"+" in "+warehouse;
+	                            	 
+	                            	 //softAssert.assertTrue(true);
+		                         }else {
+		                        	 System.out.println("Quantity from the UI"+"(*"+QuantityfromUI+"*)"+" for the Item " + matchingItem.get() + " is "+"not matching with Closing Stock Quantity " + "(*"+totalQty+"*)"+" in "+warehouse);
+		                        	 validationErrors.add("Quantity mismatch for item " + matchingItem.get() + 
+	                                         ": UI (" + QuantityfromUI + ") vs Stock (" + totalQty + ")");
+		                        	 //softAssert.assertTrue(false);
+		                         }
+	                         }else {
+	                             System.out.println("File Opening stock file Does Not Contain Item from UI as : " + itemNamefromUI);
+	                             //softAssert.assertTrue(false);
 	                         }
 	                         
-	                        
 	                         
 	                         
 	                    	
@@ -228,24 +246,50 @@ public class UserStockUpdate extends AndroidActions {
 	     	        	for (WebElement element : StockValueFields) {
 		                     try {
 		                    	 
-		                    	 //String itemNamefromUI = getFirstTwoWords(ItemNameFields.getFirst());
+		                    	 String itemNamefromUI = getFirstTwoWords(ItemNameFields.getFirst());
 		                    	 String itemNamefromUI1 = getItemName(ItemNameFields.getFirst());
+		                    	 Double QuantityfromUI=getValueAfterSlash(ItemNameFields.getFirst());
 		                    	 
-		                    	 // Find a partial match in allItemsName
+		                    	// Find a partial match in allItemsName
 		                         Optional<String> matchingItem = allItems.stream()
 		                             .filter(item -> item.contains(itemNamefromUI1)) // Partial match logic
 		                             .findFirst();
 		                         
-		                         if (matchingItem.isPresent()) {
-		                             System.out.println("File Closing stock Contains Item: " + itemNamefromUI1);
+		                        /* if (matchingItem.isPresent()) {
+		                             System.out.println("File Opening stock Contains Item: " + itemNamefromUI);
 		                             System.out.println("Matching Item in file: " + matchingItem.get());
 		                         } else {
-		                             System.out.println("File Closing stock Does Not Contain Item: " + itemNamefromUI1);
+		                             System.out.println("File Opening stock Does Not Contain Item: " + itemNamefromUI);
+		                         } */
+		                         
+		                         // Get quantity details if matched
+		                         // Get quantity details if matched
+		                         if (matchingItem.isPresent()) {
+		                        	 
+		                             double totalQty = parser.getQuantityForItemAndWarehouse(matchingItem.get(),warehouse);
+		                             //double totalQty = details.getTotalQuantity();
+		                             //System.out.println("Quantity for the " + matchingItem.get() + " is " + totalQty);
+		                             if(QuantityfromUI.equals(totalQty))
+			                         {
+		                            	 System.out.println("Quantity from the UI"+"(*"+QuantityfromUI+"*)"+" for the Item " + matchingItem.get() + " is "+" matching with Closing Stock Quantity " + "(*"+totalQty+"*)"+" in "+warehouse);
+		                            	    String msg="Quantity from the UI"+"(*"+QuantityfromUI+"*)"+" for the Item " + matchingItem.get() + " is "+" matching with Closing Stock Quantity " + "(*"+totalQty+"*)"+" in "+warehouse;
+		                            	 
+		                            	 //softAssert.assertTrue(true);
+		                            	 
+			                         }else {
+			                        	 System.out.println("Quantity from the UI"+"(*"+QuantityfromUI+"*)"+" for the Item " + matchingItem.get() + " is "+"not matching with Closing Stock Quantity " + "(*"+totalQty+"*)"+" in "+warehouse);
+			                        	 validationErrors.add("Quantity mismatch for item " + matchingItem.get() + 
+		                                         ": UI (" + QuantityfromUI + ") vs Stock (" + totalQty + ")");
+			                        	 //softAssert.assertTrue(false);
+			                         }
+		                         }else {
+		                             System.out.println("File Opening stock file Does Not Contain Item from UI as : " + itemNamefromUI+" in "+warehouse);
+		                             //softAssert.assertTrue(false);
 		                         }
 		                         
 		                         
 		                    	  
-		                    	 String rmnumber = generateRandomNumberAsString(-50, 50);
+		                     String rmnumber = generateRandomNumberAsString(-50, 50);
 		                    	 
 		                    	 
 		                	    waitForElementTobeDisappear(successmsg, driver);
@@ -281,22 +325,7 @@ public class UserStockUpdate extends AndroidActions {
 	         		 scrollToEndAction();
 	         		for (WebElement element : StockValueFields) {
 	                     try {
-	                    	 
-	                    	 String itemNamefromUI1 = getItemName(ItemNameFields.getFirst());
-	                    	 
-	                    	 // Find a partial match in allItemsName
-	                         Optional<String> matchingItem = allItems.stream()
-	                             .filter(item -> item.contains(itemNamefromUI1)) // Partial match logic
-	                             .findFirst();
-	                         
-	                         if (matchingItem.isPresent()) {
-	                             System.out.println("File Closing stock Contains Item: " + itemNamefromUI1);
-	                             System.out.println("Matching Item in file: " + matchingItem.get());
-	                         } else {
-	                             System.out.println("File Closing stock Does Not Contain Item: " + itemNamefromUI1);
-	                         }
-	                         
-	                        
+	                	
 	                    	 String rmnumber = generateRandomNumberAsString(-50, 50);
 	                    	 
 	                    	waitForElementToAppear(element, driver); 
@@ -319,7 +348,7 @@ public class UserStockUpdate extends AndroidActions {
 	                }
 	              }
 	         	 }
-	        		 
+	        		
 	        		
 	            }
             	
@@ -364,25 +393,22 @@ public class UserStockUpdate extends AndroidActions {
 	        return namesList;
 	    }
 
-	 
-	 private String getValueAfterSlash(WebElement element) {
+	 private Double getValueAfterSlash(WebElement element) {
 		    try {
 		        String contentDesc = element.getDomAttribute("content-desc");
 		        if (contentDesc != null && !contentDesc.isEmpty()) {
-		            // Split by the "/" and trim the resulting parts
+		            // Split by "/" and trim the resulting parts
 		            String[] parts = contentDesc.trim().split("/");
 		            if (parts.length >= 2) {
-		                // The second part after the "/" is what we need
-		                String value = parts[1].trim();
-		                // Extract numeric part before any non-digit characters
-		                String[] valueParts = value.split("\\s+|[^0-9.]");
-		                return valueParts[0]; // Return the numeric part
+		                // Extract the numeric value from the part after "/"
+		                String value = parts[1].trim().split("\\s+|[^0-9.]")[0];
+		                return Double.parseDouble(value); // Convert to Double
 		            }
 		        }
 		    } catch (Exception e) {
 		        System.out.println("Error getting value after slash: " + e.getMessage());
 		    }
-		    return "";
+		    return 0.0; // Default value if parsing fails
 		}
 
 	 
@@ -395,6 +421,24 @@ public class UserStockUpdate extends AndroidActions {
 	                    return words[0] + " " + words[1];
 	                } else if (words.length == 1) {
 	                    return words[0];
+	                }
+	            }
+	        } catch (Exception e) {
+	            System.out.println("Error getting content description: " + e.getMessage());
+	        }
+	        return "";
+	    }
+	    
+	    private String getItemName(WebElement element) {
+	        try {
+	            String contentDesc = element.getDomAttribute("content-desc");
+	            if (contentDesc != null && !contentDesc.isEmpty()) {
+	                // Split the content description
+	                String[] parts = contentDesc.trim().split("\n");
+	                
+	                // Return the first part (item name) if it exists
+	                if (parts.length > 0) {
+	                    return parts[0].trim();
 	                }
 	            }
 	        } catch (Exception e) {
@@ -422,24 +466,6 @@ public class UserStockUpdate extends AndroidActions {
 	            System.out.println("Error getting content description: " + e.getMessage());
 	        }
 	        return ""; // Return empty string in case of an error or invalid input
-	    }
-	    
-	    private String getItemName(WebElement element) {
-	        try {
-	            String contentDesc = element.getDomAttribute("content-desc");
-	            if (contentDesc != null && !contentDesc.isEmpty()) {
-	                // Split the content description
-	                String[] parts = contentDesc.trim().split("\n");
-	                
-	                // Return the first part (item name) if it exists
-	                if (parts.length > 0) {
-	                    return parts[0].trim();
-	                }
-	            }
-	        } catch (Exception e) {
-	            System.out.println("Error getting content description: " + e.getMessage());
-	        }
-	        return "";
 	    }
 	    
 	 // Find all elements with content-desc for warehouse fetch
@@ -597,7 +623,7 @@ public class UserStockUpdate extends AndroidActions {
          
          private String[] enterAllMismatchValues2() throws InterruptedException { 
         	
-        	 List<String> logs = new ArrayList<>(); 
+        	 List<String> logs = new ArrayList<>();
         	 List<String> tempLogs = new ArrayList<>();
         	    logs.add("Starting mismatch values correction process");
         	    logs.add("Beginning first iteration");
@@ -620,7 +646,7 @@ public class UserStockUpdate extends AndroidActions {
         	            element.sendKeys(StockQuantity);
         	            uploadbtn.click();
         	            
-        	            tempLogs.add(ActionLog);
+        	            logs.add(ActionLog);
         	            
         	            waitForElementTobeDisappear(successmsg, driver);
         	            
@@ -714,7 +740,7 @@ public class UserStockUpdate extends AndroidActions {
         	                    "width", 200,
         	                    "height", 300,
         	                    "direction", "down",
-        	                    "percent", 3.8
+        	                    "percent", 5
         	                ));
         	            if (!canScrollMore) {
         	            	logs.add("Reached end of scrollable area");
@@ -785,11 +811,24 @@ public class UserStockUpdate extends AndroidActions {
 	    
 	
 	  
-	  public void enterAllStockQuantity() throws InterruptedException, IOException
+	  public List<String> enterAllStockQuantity(String Warehouse) throws InterruptedException, IOException
 		{
-		      
-			//waitForElementTobeClickable(StockValueField, driver);
-			enterStockQuantity();
+		  List<String> validationErrors = new ArrayList<>();
+		    
+		    try {
+		        // Call your method to enter stock quantity
+		        enterStockQuantity(Warehouse, validationErrors);
+		       
+		        // After processing, assert if there are any errors
+		       assertTrue( true,"Validation errors found: " + validationErrors+
+		                   validationErrors.isEmpty());
+		       
+		        
+		    } catch (Exception e) {
+		        fail("Test failed due to exception: " + e.getMessage());
+		    }
+			return validationErrors;
+			
 		}
 	  
 	  public String[] enterMismatchValues() throws InterruptedException
@@ -831,4 +870,35 @@ public class UserStockUpdate extends AndroidActions {
 			BackButton.click();;
 			
 		}
-}
+	 
+	 
+	 public  Double uiQuantity()
+		{
+		 Double QuantityfromUI=getValueAfterSlash(ItemNameFields.getFirst());
+			return QuantityfromUI;
+		}
+	 
+	 public  Double fileQuantity(String warehouse) throws IOException
+		{
+		 InventoryFileParser parser = new InventoryFileParser("Dm Closing Stk.txt");
+			
+		 List<String> allItems = parser.getAllItemNames();
+		 String itemNamefromUI1 = getItemName(ItemNameFields.getFirst());
+    	 
+    	
+    	 // Find a partial match in allItemsName
+         Optional<String> matchingItem = allItems.stream()
+             .filter(item -> item.contains(itemNamefromUI1)) // Partial match logic
+             .findFirst();
+         
+         
+        	 
+             double totalQty = parser.getQuantityForItemAndWarehouse(matchingItem.get(),warehouse);
+             
+             
+         
+		return totalQty;
+		
+		
+       }
+	 }

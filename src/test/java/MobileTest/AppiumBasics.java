@@ -83,5 +83,95 @@ public class AppiumBasics {
 	 
 	   service.stop();
 	}
+	
+	// Example usage in your test framework
+	 * 
+	 */
 
-}*/
+/*  @Test
+public void verifyInventoryData() {
+    try {
+        // Parse the inventory file
+        List<InventoryItem> inventory = InventoryFileParser.parseInventoryFile("path/to/Dm Opening Stk.txt");
+        
+        // Example 1: Print all items
+        for (InventoryItem item : inventory) {
+            System.out.println(item);
+        }
+        
+         // Get all unique items
+        List<String> allItems = InventoryFileParser.getAllItems(inventory);
+        
+        // Print all items
+        System.out.println("All Items in Inventory:");
+        for (String item : allItems) {
+            System.out.println(item);
+        }
+        
+        // Example 2: Get items in Masala Godown
+        List<InventoryItem> masalaItems = InventoryFileParser.getItemsByLocation(inventory, "Masala Godown");
+        
+        // Example 3: Get total quantity for a specific item
+        double totalUridDal = InventoryFileParser.getTotalQuantityForItem(inventory, "Uriddal President 30kg");
+        
+        // Example 4: Get all unique locations
+        List<String> allLocations = InventoryFileParser.getAllLocations(inventory);
+        
+        // Add your assertions here
+        Assert.assertEquals(60.0, totalUridDal, 0.01);
+        Assert.assertTrue(allLocations.contains("Masala Godown"));
+    } catch (IOException e) {
+        e.printStackTrace();
+        Assert.fail("Failed to parse inventory file: " + e.getMessage());
+    }
+}
+/* Key features of this implementation:
+
+Handles quoted strings correctly
+Parses quantity and unit separately
+Maintains relationship between items and their locations
+Provides utility methods for common queries
+Uses a clean object-oriented design
+Handles multiple locations for the same item
+Easy to integrate with testing frameworks
+Would you like me to:
+
+Add more utility methods for specific verifications?
+Modify the parsing logic to handle different file formats?
+Add validation checks for the data?
+Add methods to export the data in different formats?
+ Copy
+Retry
+
+
+
+Claude can make mistakes. Please double-check responses. */
+
+/*  @Test
+public void testUniqueItems() {
+    try {
+        // Get all unique items with their total quantities
+        List<ItemParser.Item> items = ItemParser.parseUniqueItems("path/to/Dm Opening Stk.txt");
+        
+        // Print all items
+        ItemParser.printAllItems(items);
+        
+        // Example: Check specific item
+        ItemParser.Item uridDal = ItemParser.getItemByName(items, "Uriddal President 30kg");
+        Assert.assertNotNull(uridDal);
+        Assert.assertEquals(60.0, uridDal.getTotalQuantity(), 0.01);
+        
+        // Use in your framework
+        for (ItemParser.Item item : items) {
+            System.out.println(String.format("Item: %s, Total Quantity: %.2f %s",
+                item.getItemName(),
+                item.getTotalQuantity(),
+                item.getUnit()));
+        }
+        
+    } catch (IOException e) {
+        e.printStackTrace();
+        Assert.fail("Failed to parse items: " + e.getMessage());
+    }
+}  */
+
