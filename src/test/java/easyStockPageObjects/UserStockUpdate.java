@@ -95,13 +95,20 @@ public class UserStockUpdate extends AndroidActions {
 	 @FindBy(xpath  = "//android.widget.Button[@content-desc=\"Back\"]")
 	 private WebElement BackButton;
 	 
+	 @FindBy(xpath  = "//android.widget.CheckBox[@content-desc=\"Warehouses\"]")
+	 private WebElement stockverifypage;
+	
+	 
 	 public WebElement getbranch(String branchnm) {
 	        String xpath = String.format("//android.widget.Button[@content-desc=\"%s\"]", branchnm);
 	        return driver.findElement(AppiumBy.xpath(xpath));
 	    }
 	 
 	 
-	 
+	 public boolean isStockVerifyTxtDisplayed()
+		{
+			return isElementPresent(stockverifypage);
+		}
 	 
 	 
 	 public void clickVerify()

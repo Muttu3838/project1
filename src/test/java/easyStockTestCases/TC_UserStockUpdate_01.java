@@ -1,7 +1,6 @@
 package easyStockTestCases;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -12,7 +11,6 @@ import easyStockPageObjects.LoginPage;
 import easyStockPageObjects.UserStockUpdate;
 import easyStockUtilities.AndroidActions;
 import easyStockUtilities.InventoryFileParser;
-import easyStockUtilities.InventoryFileParser.ItemQuantityDetails;
 
 
 public class TC_UserStockUpdate_01 extends BaseClass {
@@ -24,15 +22,21 @@ public class TC_UserStockUpdate_01 extends BaseClass {
         setSkipProfileClick(true);
     }
 	
-	@Test(enabled = false)
-	public void stockVerify() throws InterruptedException, FindFailed, IOException
-	{
-		UserStockUpdate us=new UserStockUpdate(driver);
+	
+	public void LoginForUser() throws InterruptedException {
 		TC_LoginDDT_001 la=new TC_LoginDDT_001();
 		LoginPage lp=new LoginPage(driver);
 		AndroidActions Actions=new AndroidActions(driver);
 		la.performLoginSteps(lp,Actions , usernumber, password);
 		logger.info("Logined as User with "+usernumber+ " and Password "+password);
+		
+		
+	}
+	@Test(enabled = false)
+	public void stockVerify() throws InterruptedException, FindFailed, IOException
+	{
+		UserStockUpdate us=new UserStockUpdate(driver);
+		LoginForUser();
 		//lp.FinalBack();
 		
 		us.clickVerify();
@@ -50,21 +54,14 @@ public class TC_UserStockUpdate_01 extends BaseClass {
 		us.enterStockOnefield("30");
 		
 		us.clickUpload();
-		
-		
-		
-		
-		
+	
 	}
 	
-	@Test(enabled = true)
+	@Test(enabled = true,priority = 1)
 	public void stockVerifywithSearch() throws InterruptedException, IOException
 	{
 		UserStockUpdate us=new UserStockUpdate(driver);
-		TC_LoginDDT_001 la=new TC_LoginDDT_001();
-		LoginPage lp=new LoginPage(driver);
-		AndroidActions Actions=new AndroidActions(driver);
-		la.performLoginSteps(lp,Actions , usernumber, password);
+		LoginForUser();
 		
 		//lp.FinalBack();
 		
@@ -106,12 +103,16 @@ public class TC_UserStockUpdate_01 extends BaseClass {
 			
 			if( warehouses.contains(names))
 			{
-				softAssert.assertTrue(true);
 				logger.info(names+" warehouse present in the file");
+				softAssert.assertTrue(true);
+				
+				
 			}else
 			{
-				softAssert.assertTrue(false);
 				logger.info(names+" warehouse not present in the file");
+				softAssert.assertTrue(false, "Failed as warehouse "+names +" not exist");
+				
+				
 			}
 			us.searchWarehouse(names);  
 			logger.info("Searched for "+names);
@@ -121,12 +122,12 @@ public class TC_UserStockUpdate_01 extends BaseClass {
 			
 			List<String> allItems = parser.getItemsInWarehouse(names);
 			
-	    for (String ItemNames : allItems)
+	    for (String ItemName : allItems)
 			
 			{
 				
-		    us.searchItem(ItemNames);
-			logger.info("Searched for Item "+ItemNames);
+		    us.searchItem(ItemName);
+			logger.info("Searched for Item "+ItemName);
 			
 			String rmnumber = generateRandomNumberAsString(-50, 50);
 			
@@ -142,8 +143,8 @@ public class TC_UserStockUpdate_01 extends BaseClass {
 			   
 			}else
 			{
-				logger.info("Item Not present in the Warehouse"+names);
-				softAssert.assertTrue(false);
+				logger.info("Item Not present in the "+names);
+				softAssert.assertTrue(false, "Failed as Item "+ItemName+" not present");
 				
 			}
 						}
@@ -160,21 +161,24 @@ public class TC_UserStockUpdate_01 extends BaseClass {
 		
         }
 	
-		
-		
 	
 	
-	@Test(priority = 3)
+	@Test(priority = 2,enabled = true)
 	public void stockVerifywithScroll() throws InterruptedException, IOException
 	{
 		UserStockUpdate us=new UserStockUpdate(driver);
-		TC_LoginDDT_001 la=new TC_LoginDDT_001();
-		LoginPage lp=new LoginPage(driver);
-		AndroidActions Actions=new AndroidActions(driver);
-		la.performLoginSteps(lp,Actions , usernumber, password);
-		logger.info("Logined as User");
-		//lp.FinalBack();
 		
+		if(us.isStockVerifyTxtDisplayed()) {
+			
+			logger.info("Login not required");
+			
+		}else {
+			
+		LoginForUser();
+		
+		logger.info("Login Successfull");
+		//lp.FinalBack();
+		}
 		us.clickVerify();
 		logger.info("Clicked on Verify");
 		
@@ -226,7 +230,7 @@ public class TC_UserStockUpdate_01 extends BaseClass {
 		
 		for (String names : WarehouseNames) {
 			
-			logger.info("Moving dorward with warehouse "+names);
+			logger.info("Moving forward with warehouse "+names);
 			
 			
 			if( warehouses.contains(names))
@@ -235,7 +239,7 @@ public class TC_UserStockUpdate_01 extends BaseClass {
 				logger.info(names+" warehouse present in the Closing Stock file");
 			}else
 			{
-				softAssert.assertTrue(false);
+				softAssert.assertTrue(false,"Failed as warehouse not present in closing stock");
 				logger.info(names+" warehouse not present in the Closing Stock file");
 			}
 			us.searchWarehouse(names);  

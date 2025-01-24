@@ -871,6 +871,11 @@ public class FilesVerification extends AndroidActions {
 			
 		}
 	 
+	 public boolean isenterStockOnefieldDisplayed()
+		{
+		return isElementPresent(StockValueField);
+		}
+	 
 	 
 	 public  Double uiQuantity()
 		{
