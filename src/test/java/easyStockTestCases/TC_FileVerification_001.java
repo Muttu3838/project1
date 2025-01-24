@@ -205,9 +205,11 @@ public class TC_FileVerification_001 extends BaseClass {
 		    us.searchItem(ItemNames);
 			logger.info("Searched for Item "+ItemNames);
 			
-		Double uiquantity=us.uiQuantity();
+			if(us.isenterStockOnefieldDisplayed()) {
 		
-		Double filequantity=us.fileQuantity(names);
+				Double uiquantity=us.uiQuantity();
+		
+		        Double filequantity=us.fileQuantity(names);
 		
 			if(uiquantity.equals(filequantity)) 
 			{
@@ -215,11 +217,18 @@ public class TC_FileVerification_001 extends BaseClass {
 				softAssert.assertTrue(true);
 			}else 
 			{
-				logger.info("Quantity from the UI"+"(*"+uiquantity+"*)"+" for the Item " + ItemNames + " is Not matching with Closing Stock Quantity " + "(*"+filequantity+"*)"+" in "+names);
+				logger.error("Quantity from the UI"+"(*"+uiquantity+"*)"+" for the Item " + ItemNames + " is Not matching with Closing Stock Quantity " + "(*"+filequantity+"*)"+" in "+names);
 				softAssert.assertTrue(false);
 			}
 			
+			 }else {
+				
+				 softAssert.assertTrue(false);
+				 logger.error(ItemNames+" is not present in "+names);
+				 
+			 }
 			}
+			
 			
 			us.ClickBulkUpload();
 			logger.info("Clicked on Submit button");

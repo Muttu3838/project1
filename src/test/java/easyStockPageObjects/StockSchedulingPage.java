@@ -130,7 +130,8 @@ public class StockSchedulingPage extends AndroidActions {
 		          
                    if(scrollCount < maxScrollAttempts && scrollCount > 0);
                     {  
-                    	swipeAction(Dailybtns.getFirst(), "up");
+                    	scrollToEndAction();
+                    	//swipeAction(Dailybtns.getFirst(), "up");
                     	System.out.println("First element swipped down");
                     	Dailybtns.getLast().click();
                     	/*if(isNotificationDisplayed())
@@ -194,7 +195,8 @@ public class StockSchedulingPage extends AndroidActions {
 		          
                 if(scrollCount < maxScrollAttempts && scrollCount > 0);
                  {  
-                 	swipeAction(Weeklybtns.getFirst(), "up");
+                	 scrollToEndAction();
+                 	//swipeAction(Weeklybtns.getFirst(), "up");
                  	System.out.println("First element swipped down");
                  	Weeklybtns.getLast().click();
                  	ChooseDay(Day);
@@ -261,7 +263,8 @@ public class StockSchedulingPage extends AndroidActions {
 		          
              if(scrollCount < maxScrollAttempts && scrollCount > 0);
               {  
-              	swipeAction(Monthlybtns.getFirst(), "up");
+            	  scrollToEndAction();
+              	//swipeAction(Monthlybtns.getFirst(), "up");
               	System.out.println("First element swipped down");
               	TimeUnit.SECONDS.sleep(1);
               	Monthlybtns.getLast().click();
@@ -357,7 +360,8 @@ public class StockSchedulingPage extends AndroidActions {
 		          
           if(scrollCount < maxScrollAttempts && scrollCount > 0);
            {  
-           	swipeAction(yearlybtn.getFirst(), "up");
+        	scrollToEndAction();
+           	//swipeAction(yearlybtn.getFirst(), "up");
            	System.out.println("First element swipped down");
            	
            	yearlybtn.getLast().click();
