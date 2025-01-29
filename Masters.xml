@@ -8,7 +8,7 @@
 <listener class-name="easyStockUtilities.Reporting"/>
 </listeners>
 
-	  <test thread-count="5" name="Master Test">
+   <test thread-count="5" name="Master Test">
   
     <classes>
       <class name="easyStockTestCases.TC_Login_001"/>
@@ -19,6 +19,14 @@
       <class name="easyStockTestCases.TC_ConfigWarehouse_001"/>
       <class name="easyStockTestCases.TC_User_001"/>
       <class name="easyStockTestCases.TC_StockSchedule_001"/>
+       <class name="easyStockTestCases.TC_StockSchedule_001"/>
+     
+      <class name="easyStockTestCases.TC_FileVerification_001"/>
+      
+      <class name="easyStockTestCases.TC_UserStockUpdate_01"/>
+      
+      <class name="easyStockTestCases.TC_UpdateMismatch_001"/>
+    
     
     </classes>
   </test> <!-- Test -->

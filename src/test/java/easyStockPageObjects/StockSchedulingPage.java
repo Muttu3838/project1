@@ -195,7 +195,7 @@ public class StockSchedulingPage extends AndroidActions {
 		          
                 if(scrollCount < maxScrollAttempts && scrollCount > 0);
                  {  
-                	 scrollToEndAction();
+                	scrollToEndAction();
                  	//swipeAction(Weeklybtns.getFirst(), "up");
                  	System.out.println("First element swipped down");
                  	Weeklybtns.getLast().click();

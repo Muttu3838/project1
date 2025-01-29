@@ -61,7 +61,7 @@ public class UploadPage extends AndroidActions {
 	@AndroidFindBy(accessibility = "upload your file here\nBrowse")
 	private WebElement Uploadfile;
 	
-	@AndroidFindBy(id = "com.google.android.documentsui:id/option_menu_search")
+	@AndroidFindBy(xpath = "//android.widget.Button[@content-desc=\"Search\"]")
 	private WebElement searchicon;
 	
 	@AndroidFindBy(className  = "android.widget.AutoCompleteTextView")
