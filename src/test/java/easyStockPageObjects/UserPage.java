@@ -30,13 +30,13 @@ private FlutterAndroidDriver driver;
 	@AndroidFindBy(xpath = "//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.Button")
 	private WebElement Userplusbtn;
 	
-	@AndroidFindBy(xpath = "//android.widget.ScrollView/android.widget.EditText[1]")
+	@AndroidFindBy(xpath = "//android.widget.ImageView/following-sibling::android.widget.EditText[1]")
 	private WebElement Username;
 	
-	@AndroidFindBy(xpath = "//android.widget.ScrollView/android.widget.EditText[2]")
+	@AndroidFindBy(xpath = "//android.widget.ImageView/following-sibling::android.widget.EditText[2]")
 	private WebElement Mobilenumber;
 	
-	@AndroidFindBy(xpath = "//android.widget.ScrollView/android.widget.EditText[3]")
+	@AndroidFindBy(xpath = "//android.widget.ImageView/following-sibling::android.widget.EditText[3]")
 	private WebElement Password;
 	
 	@AndroidFindBy(accessibility = "Select role")

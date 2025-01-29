@@ -42,12 +42,19 @@ public class SubscriptionPage extends AndroidActions {
 	@AndroidFindBy(xpath = "//android.widget.Button[@content-desc=\"Pay Now\"]")
 	private WebElement Paynow;
 	
-	@AndroidFindBy(accessibility = "Proceed to Pay")
-	private WebElement pcoceedtopay;
+	@AndroidFindBy(accessibility  = "Proceed to Pay")
+	private WebElement proceedtopay;
 	
 	@AndroidFindBy(accessibility  = "Wallets")
 	private WebElement walletmode;
 	
+	@FindBy(xpath  = "//android.view.View[@content-desc=\"Pay by UPI ID\"]")
+	private WebElement paybyupiIdbtn;
+	
+	
+	@FindBy(xpath  = "(//android.widget.Button[@text=\"Use\"])[1]")
+	private WebElement UsePassbtn;
+			
 	@AndroidFindBy(xpath  = "//android.view.View[@text=\"Wallet icon Test Wallet\"]")
 	private WebElement testwallet;
 	//android.widget.TextView[@text=\"Amount Details\"]/parent::android.view.View/android.view.View/android.widget.Button
@@ -57,7 +64,7 @@ public class SubscriptionPage extends AndroidActions {
 	@FindBy(xpath  = "//android.widget.TextView[@text=\"Amount Details\"]")
 	private WebElement Amountdetails;
 	
-	@FindBy(xpath  = "//android.webkit.WebView[@text=\"Cashfree Checkout\"]/android.view.View/android.view.View[3]/android.view.View/android.view.View/android.widget.Button")
+	@FindBy(xpath  = "//android.widget.Button[@text=\"Proceed to Pay\"]")
 	private WebElement ProceedtoPay2;
 	
 	@FindBy(xpath  = "//android.widget.Button[@text=\"Pay using Test Wallet\"]")
@@ -120,8 +127,9 @@ public class SubscriptionPage extends AndroidActions {
 	}
 
 	public void setProceedtopay() {
-		waitForElementTobeClickable(pcoceedtopay, driver);
-		pcoceedtopay.click();
+		
+		waitForElementTobeClickable(proceedtopay, driver);
+		proceedtopay.click();
 	}
 
 	public void setWalletMode() {
@@ -134,13 +142,24 @@ public class SubscriptionPage extends AndroidActions {
 		testwallet.click();
 	}
 	
+	public void setbyUpiId() {
+		waitForElementTobeClickable(paybyupiIdbtn, driver);
+		paybyupiIdbtn.click();
+	}
+	
+	public void setUsePass() {
+		waitForElementTobeClickable(UsePassbtn, driver);
+		UsePassbtn.click();
+	}
+	
 	public String setAmountdeatils() {
 		waitForElementTobeClickable(testwallet, driver);
 		return Amountdetails.getText();
 	}
 	
 	public void setProceedtopay2() {
-		waitForElementTobeClickable(ProceedtoPay2, driver);
+		
+		waitForElementToAppear(ProceedtoPay2, driver);
 		ProceedtoPay2.click();
 	}
 	
