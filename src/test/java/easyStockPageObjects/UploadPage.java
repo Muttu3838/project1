@@ -68,7 +68,7 @@ public class UploadPage extends AndroidActions {
 	private WebElement searchfiletxt;
 	
 	//android.widget.TextView[@resource-id=\"android:id/title\"])[1]
-	@AndroidFindBy(xpath  = "//android.widget.LinearLayout[@resource-id=\"com.google.android.documentsui:id/item_root\"]/android.widget.LinearLayout/android.widget.LinearLayout")
+	@AndroidFindBy(xpath  = "//android.widget.LinearLayout[@resource-id=\"com.google.android.go.documentsui:id/item_root\"]/android.widget.LinearLayout/android.widget.LinearLayout")
 	private WebElement selectfile;
 	
 	@AndroidFindBy(uiAutomator   = "new UiSelector().className(\"android.widget.Button\").instance(5)")
@@ -228,7 +228,7 @@ public class UploadPage extends AndroidActions {
 	public void selectFile() throws InterruptedException
 	{
 		TimeUnit.SECONDS.sleep(3);
-		waitForElementTobeClickable(selectfile, driver);
+		waitForElementToAppear(selectfile, driver);
 	    selectfile.click();
 	}
 	
