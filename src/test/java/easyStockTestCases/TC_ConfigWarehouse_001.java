@@ -30,8 +30,8 @@ public class TC_ConfigWarehouse_001 extends BaseClass {
 				TC_subscriptionAddon_001 subscription=new TC_subscriptionAddon_001();
 				subscription.Addon("warehouse",5);
 				System.out.println("Warehouses got added successfully");
-				 conf.settingClick();
-				 conf.confWarehouseClick();
+				conf.settingClick();
+				conf.confWarehouseClick();
 			}
 		 
 	        Configure(Warehousecnt);  // Call the Addon method with the default value or dynamic value
@@ -85,12 +85,12 @@ public class TC_ConfigWarehouse_001 extends BaseClass {
 	        if (Warehousecnt.equalsIgnoreCase("1st")) {
 	        	
 	        	
-	        	 conf.chooseWarehouse1();
+	        	conf.chooseWarehouse1();
 	        	
 	        } 
 	        else if (Warehousecnt.equalsIgnoreCase("2nd")) 
 	        {
-	        	 conf.chooseWarehouse2();
+	        	conf.chooseWarehouse2();
 	        	 
 	        } 
 	        else if (Warehousecnt.equalsIgnoreCase("3rd")) 
@@ -100,7 +100,7 @@ public class TC_ConfigWarehouse_001 extends BaseClass {
 	        } 
 	        else if (Warehousecnt.equalsIgnoreCase("4th"))
 	        {
-		        conf.chooseWarehouse4();
+	        	conf.chooseWarehouse4();
 	        } 
 	        else if (Warehousecnt.equalsIgnoreCase("5th")) 
 	        {
@@ -109,22 +109,22 @@ public class TC_ConfigWarehouse_001 extends BaseClass {
 	        {
 	        	if(conf.isWarehouse1Enabled() && conf.isWarehouse2Enabled() && conf.isWarehouse3Enabled() && conf.isWarehouse4Enabled() && conf.isWarehouse5Enabled())
 	        	{
-	        	conf.chooseWarehouse1();
-		        conf.chooseWarehouse2();
-		        conf.chooseWarehouse3();
-		        conf.chooseWarehouse4();
-		        conf.chooseWarehouse5();
+	        		conf.chooseWarehouse1();
+	        		conf.chooseWarehouse2();
+	        		conf.chooseWarehouse3();
+	        		conf.chooseWarehouse4();
+	        		conf.chooseWarehouse5();
 		        
 	        	}else if(conf.isWarehouse1selected()==false && conf.isWarehouse2selected()==false && conf.isWarehouse3selected()==false && conf.isWarehouse4selected()==false && conf.isWarehouse5selected()==false)
 	        	{
-	        		System.out.println("Warehouses has been already configured");
+	        		logger.info("Warehouses has been already configured");
 	        	    
 	        	}
 	        }
 	        if(conf.isWarehouse1selected() || conf.isWarehouse2selected() || conf.isWarehouse3selected() || conf.isWarehouse4selected() || conf.isWarehouse5selected())
         	{
-	        conf.clickConfigure(); 
-	        conf.clickYes();
+	        	conf.clickConfigure(); 
+	        	conf.clickYes();
 	        softAssert.assertTrue(true, "Configuration successfull");
         	}
 	       

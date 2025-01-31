@@ -69,8 +69,8 @@ public class TC_CreateBrach_001 extends BaseClass {
 			try
 			{
 		    logger.info("Out of plan, adding 1 more Branch from subscription");
-			bp.ClickBack();
-			bp.ClickBack();
+		    bp.ClickBack();
+		    bp.ClickBack();
 			
 			LoginPage lp=new LoginPage(driver);
 			lp.setprofilebtn();
@@ -95,7 +95,7 @@ public class TC_CreateBrach_001 extends BaseClass {
 			
 		}
 		else {
-			softAssert.assertTrue(false, "failed");
+			softAssert.assertTrue(false, "Branch adding got failed");
 			logger.info("Branch Adding failed");
 		}
 	}

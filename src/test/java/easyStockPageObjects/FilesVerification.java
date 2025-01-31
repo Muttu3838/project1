@@ -18,17 +18,12 @@ import java.util.regex.Pattern;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
-import org.testng.asserts.SoftAssert;
-
 import com.google.common.collect.ImmutableMap;
 
 
 import easyStockUtilities.AndroidActions;
 import easyStockUtilities.InventoryFileParser;
 
-import easyStockUtilities.ItemParser;
-import easyStockUtilities.InventoryFileParser.ItemQuantityDetails;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.flutter.android.FlutterAndroidDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;

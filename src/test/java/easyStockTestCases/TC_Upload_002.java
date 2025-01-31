@@ -142,7 +142,8 @@ public class TC_Upload_002 extends BaseClass {
 		//up.confirmNo();
 		if (up.isSuccessMsgWarehouse() && up.isconfirmYes())//conmsg.equalsIgnoreCase("Warehouses uploaded successfully." ))
 		{
-			softAssert.assertTrue(true, "Warehouses upload got Passed");
+			softAssert.assertTrue(true, "Warehouses upload success msg displayed & contuining with warehouse configuration");
+			logger.info("Success msg displayed");
 			up.confirmYes();
 			
 			
@@ -157,10 +158,11 @@ public class TC_Upload_002 extends BaseClass {
 			{    
 				cp.ClickBack();
 				//cp.FinalBack();
-				System.out.println("Subscription count is '"+count+"' need to get more Warehouses");
+				logger.info("Subscription count is '"+count+"' need to get more Warehouses");
 				//need to implement Addwarehouse from subscription
 				TC_subscriptionAddon_001 subscription=new TC_subscriptionAddon_001();
 				subscription.Addon("warehouse",5);
+				logger.info("'"+count+"' warehouses purchased need & trying to configure warehouses again");
 				uploadExistingWarehouse();
 			}
 			
@@ -170,7 +172,8 @@ public class TC_Upload_002 extends BaseClass {
 		}
 		else 
 		{
-			softAssert.assertTrue(false, "failed");
+			softAssert.assertTrue(false, "Warehouses upload msg Not displayed");
+			logger.info("Success msg Not displayed");
 		}
 		
 		//lp.setprofilebtn();
@@ -229,14 +232,15 @@ public class TC_Upload_002 extends BaseClass {
 		if (up.isSuccessMsgItems())//conmsg1.equalsIgnoreCase("Items uploaded successfully."))
 		{
 			//System.out.println(conmsg1);
-		    softAssert.assertTrue(true, "Upload Items got Passed");
-			
+		    softAssert.assertTrue(true, "Item upload success msg displayed & contuining with warehouse configuration");
+		    logger.info("Success msg displayed");
 			
 			
 		}
 	else 
 		{
-			softAssert.assertTrue(false, "failed");
+			softAssert.assertTrue(false, "Item upload success msg Not displayed");
+			logger.info("Success msg Not displayed");
 		}
 	
 	}
@@ -301,12 +305,13 @@ public class TC_Upload_002 extends BaseClass {
 				logger.info("Notication not coming");
 			}
 			//System.out.println(conmsg2);
-		    softAssert.assertTrue(true, "Upload Opening stock got Passed");
-			
+		    softAssert.assertTrue(true, "Opening stock upload success msg displayed & contuining with warehouse configuration");
+		    logger.info("Success msg displayed");
 		}
 	else 
 		{
 			softAssert.assertTrue(false, "failed");
+			logger.info("Success msg Not displayed");
 		}
 	}
 	
@@ -371,15 +376,16 @@ public class TC_Upload_002 extends BaseClass {
 				logger.info("Notication not coming");
 			}
 			//System.out.println(conmsg2);
-		    softAssert.assertTrue(true, "Upload closing stock got Passed");
-		    
+		    softAssert.assertTrue(true, "Closing stock upload success msg displayed & contuining with warehouse configuration");
+		    logger.info("Success msg displayed");
 			
 			
 			
 		}
 	else 
 		{
-			softAssert.assertTrue(false, "failed");
+			softAssert.assertTrue(false, "Success msg Not displayed");
+			logger.info("Success msg Not displayed");
 		}
 		
 		

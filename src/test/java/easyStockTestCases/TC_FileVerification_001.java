@@ -7,13 +7,16 @@ import org.testng.annotations.Test;
 
 import easyStockPageObjects.FilesVerification;
 import easyStockPageObjects.LoginPage;
-import easyStockPageObjects.UserStockUpdate;
-import easyStockUtilities.AndroidActions;
 import easyStockUtilities.InventoryFileParser;
-import junit.framework.Assert;
 
 public class TC_FileVerification_001 extends BaseClass {
 
+	public TC_FileVerification_001() {
+        // Call this in the constructor to skip login for this test class
+        setSkipLogin(true);
+        setSkipProfileClick(true);
+    }
+	
 	@Test(priority = 1,enabled = false)
 	public void closingStockVerfication() throws InterruptedException, IOException
 	{
@@ -202,7 +205,7 @@ public class TC_FileVerification_001 extends BaseClass {
 			
 			{
 				
-		    us.searchItem(ItemNames);
+	    	us.searchItem(ItemNames);
 			logger.info("Searched for Item "+ItemNames);
 			
 			if(us.isenterStockOnefieldDisplayed()) {
@@ -217,8 +220,10 @@ public class TC_FileVerification_001 extends BaseClass {
 				softAssert.assertTrue(true);
 			}else 
 			{
+				
 				logger.error("Quantity from the UI"+"(*"+uiquantity+"*)"+" for the Item " + ItemNames + " is Not matching with Closing Stock Quantity " + "(*"+filequantity+"*)"+" in "+names);
 				softAssert.assertTrue(false);
+				
 			}
 			
 			 }else {
@@ -227,18 +232,17 @@ public class TC_FileVerification_001 extends BaseClass {
 				 logger.error(ItemNames+" is not present in "+names);
 				 
 			 }
+			
 			}
 			
 			
-			us.ClickBulkUpload();
+	        us.ClickBulkUpload();
 			logger.info("Clicked on Submit button");
 			
 			us.ClickBack();
 			logger.info("Clicked on Back button");
 			
             }
-		
-		
 		
         }
 	
