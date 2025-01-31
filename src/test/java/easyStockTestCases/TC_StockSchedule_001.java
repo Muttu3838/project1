@@ -14,12 +14,16 @@ public class TC_StockSchedule_001 extends BaseClass {
 		//StockSchedulingPage ss=new StockSchedulingPage(driver);
 		
 		ss.settingClick();
+		logger.info("Clicked on setting from sidebar");
 		
 		ss.stockSchedulingClick();
+		logger.info("Clicked on Stockschedule from Setting Page");
 		
 		ss.setClickbranch();
+		logger.info("Clicked on branch dropdown");
 		
 		ss.selectbranch(branchnm);
+		logger.info("Selected Branch as "+branchnm);
 		
 		
 		
@@ -44,6 +48,7 @@ public class TC_StockSchedule_001 extends BaseClass {
 		schedule(ss);
 	   
 		ss.clickAllDailyElements();
+		logger.info("Scheduled all Warehouses for Day");
 	}
 	
 	@Test(priority = 2)
@@ -55,6 +60,7 @@ public class TC_StockSchedule_001 extends BaseClass {
 		schedule(ss);
 		
 		ss.selectDay("Monday");
+		logger.info("Scheduled all Warehouses for Monday for every week");
 		
 		/*if(ss.isNotificationDisplayed())
 		{
@@ -77,7 +83,7 @@ public class TC_StockSchedule_001 extends BaseClass {
 		schedule(ss);
 		
 		ss.selectDaterange("16", "20");
-		
+		logger.info("Scheduled all Warehouses from 16th to 20th for every month");
 		/*if(ss.isNotificationDisplayed())
 		{
 		ss.slideNotication();
@@ -99,7 +105,7 @@ public class TC_StockSchedule_001 extends BaseClass {
 		schedule(ss);
 		
 		ss.selectMonth("16","20","February");
-		
+		logger.info("Scheduled all Warehouses from 16th to 20th for every Year in February Month");
 		/*if(ss.isNotificationDisplayed())
 		{
 		ss.slideNotication();

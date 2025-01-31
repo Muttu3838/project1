@@ -266,7 +266,7 @@ public class UploadPage extends AndroidActions {
 	public boolean isSuccessMsgWarehouse()
 	{
 		 try {
-	        	//waitForElementToAppear(successmsgWarehouse, driver);
+	        	waitForElementToAppear(successmsgWarehouse, driver);
 	            return isElementPresent(successmsgWarehouse);
 	        } catch (NoSuchElementException e) {
 	            return false;//null != null;
@@ -278,7 +278,7 @@ public class UploadPage extends AndroidActions {
 	public boolean isSuccessMsgItems()
 	{
 		try {
-        	//waitForElementToAppear(successmsgItems, driver);
+        	waitForElementToAppear(successmsgItems, driver);
             return isElementPresent(successmsgItems);
         } catch (NoSuchElementException e) {
             return false;//null != null;
@@ -289,7 +289,7 @@ public class UploadPage extends AndroidActions {
 	public boolean issuccessMsgTallyStock()
 	{
 		try {
-        	//waitForElementToAppear(successmsgtallystk, driver);
+        waitForElementToAppear(successmsgtallystk, driver);
             return isElementPresent(successmsgtallystk);
         } catch (NoSuchElementException e) {
             return false;//null != null;

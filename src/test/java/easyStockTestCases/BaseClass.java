@@ -22,7 +22,16 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.asserts.SoftAssert;
 
+import easyStockPageObjects.BranchPage;
+import easyStockPageObjects.CreateAccountPage;
+import easyStockPageObjects.FilesVerification;
 import easyStockPageObjects.LoginPage;
+import easyStockPageObjects.StockSchedulingPage;
+import easyStockPageObjects.SubscriptionPage;
+import easyStockPageObjects.UploadPage;
+import easyStockPageObjects.UserPage;
+import easyStockPageObjects.UserStockUpdate;
+import easyStockPageObjects.confWarehousePage;
 import easyStockUtilities.AppiumUtils;
 import easyStockUtilities.ReadConfig;
 import io.appium.java_client.android.options.UiAutomator2Options;
@@ -33,6 +42,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Flow.Subscription;
 
 
 public class BaseClass extends AppiumUtils {
@@ -54,7 +64,8 @@ public class BaseClass extends AppiumUtils {
 	protected static SoftAssert softAssert; 
 	
 	 private boolean skipLogin = false;
-	 private boolean skipProfileClick = false;    
+	 private boolean skipProfileClick = false;   
+	 
 	 
 	    // Method to set skip login flag
 	    protected void setSkipLogin(boolean skip) {
@@ -65,6 +76,7 @@ public class BaseClass extends AppiumUtils {
 	        this.skipProfileClick = skip;
 	    }
 
+	  
 	    
 	//@Parameters("browser")
 	@BeforeClass(alwaysRun = true)
@@ -201,8 +213,8 @@ public class BaseClass extends AppiumUtils {
     protected void beforeEachMethod() throws InterruptedException, IOException, FindFailed {
         if (!skipProfileClick) {
             // Profile click before each test method
-            LoginPage lp = new LoginPage(driver);
-            lp.setprofilebtn();
+           LoginPage lp = new LoginPage(driver);
+        	lp.setprofilebtn();
             logger.info("Clicked on profile before test method execution");
         }
     }
@@ -219,14 +231,14 @@ public class BaseClass extends AppiumUtils {
                 
                 // Keep clicking back while the back button is visible
                 while (lp.isBackButtonVisible()) {
-                    lp.ClickBack();;
+                	lp.ClickBack();;
                     logger.info("Clicked back button");
                     Thread.sleep(500); // Small wait to allow UI to update
                 }
                 
                 // Check and click final back if visible
                 if (lp.isFinalBackVisible()) {
-                    lp.FinalBack();
+                	lp.FinalBack();
                     logger.info("Clicked final back button");
                 }
                 
