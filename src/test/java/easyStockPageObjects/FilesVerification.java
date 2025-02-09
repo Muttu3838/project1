@@ -424,7 +424,7 @@ public class FilesVerification extends AndroidActions {
 	        return "";
 	    }
 	    
-	    private String getItemName(WebElement element) {
+	    private String getItemName (WebElement element) {
 	        try {
 	            String contentDesc = element.getDomAttribute("content-desc");
 	            if (contentDesc != null && !contentDesc.isEmpty()) {

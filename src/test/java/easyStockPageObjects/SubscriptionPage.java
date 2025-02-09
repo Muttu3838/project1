@@ -42,7 +42,7 @@ public class SubscriptionPage extends AndroidActions {
 	@AndroidFindBy(xpath = "//android.widget.Button[@content-desc=\"Pay Now\"]")
 	private WebElement Paynow;
 	
-	@AndroidFindBy(accessibility  = "Proceed to Pay")
+	@AndroidFindBy(accessibility = "Proceed to Pay")
 	private WebElement proceedtopay;
 	
 	@AndroidFindBy(accessibility  = "Wallets")

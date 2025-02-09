@@ -24,20 +24,20 @@ public class CreateAccountPage extends AndroidActions {
 	 private WebElement CraeteAccbtn;
 	//android.widget.ScrollView/android.widget.EditText[1]
 	 
-	 @AndroidFindBy(xpath  = "//android.widget.ScrollView/android.widget.EditText[1]")
+	 @AndroidFindBy(xpath  = "//android.view.View[@content-desc=\"Create Account\"]/following-sibling::android.widget.EditText[1]")
 	 private WebElement mobilenm;
 	 
-	 @AndroidFindBy(xpath  = "//android.widget.ScrollView/android.widget.EditText[2]")
+	 @AndroidFindBy(xpath  = "//android.view.View[@content-desc=\"Create Account\"]/following-sibling::android.widget.EditText[2]")
 	 private WebElement email;
 	 
-	 @AndroidFindBy(xpath  = "//android.widget.ScrollView/android.widget.EditText[3]")
+	 @AndroidFindBy(xpath  = "//android.view.View[@content-desc=\"Create Account\"]/following-sibling::android.widget.EditText[3]")
 	 private WebElement pwd;
 	//android.widget.ScrollView/android.widget.CheckBox[1]
 	 
-	 @AndroidFindBy(xpath  = "//android.widget.ScrollView/android.widget.CheckBox[1]")
+	 @AndroidFindBy(xpath  = "//android.view.View[@content-desc=\"Create Account\"]/following-sibling::android.widget.CheckBox")
 	 private WebElement acceptTC;
 	 
-	 @AndroidFindBy(xpath  = "//android.widget.ScrollView/android.widget.CheckBox[1]")
+	 @AndroidFindBy(xpath  = "//android.widget.Button")
 	 private WebElement submitBtn;
 	 
 	 public void createAccBtn()

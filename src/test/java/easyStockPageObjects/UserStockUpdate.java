@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.jspecify.annotations.Nullable;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -97,13 +98,38 @@ public class UserStockUpdate extends AndroidActions {
 	 
 	 @FindBy(xpath  = "//android.widget.CheckBox[@content-desc=\"Warehouses\"]")
 	 private WebElement stockverifypage;
+	//android.widget.CheckBox[@content-desc="Items"]
 	
+	 @FindBy(xpath  = "//android.widget.CheckBox[@content-desc=\"Items\"]")
+	 private WebElement ItemsBtn;
+	 
+	 @AndroidFindBy(xpath = "//android.widget.CheckBox[@content-desc=\"Warehouses\"]/following-sibling::android.view.View[1]/android.view.View[1]//android.view.View[1]")
+	 private WebElement Item;
+	 
+	 @AndroidFindBy(xpath = "//android.view.View[@content-desc=\"  Warehouses\"]/following-sibling::android.view.View[1]/android.view.View[1]/android.widget.ImageView")
+	 private List<WebElement> Itemftech;
 	 
 	 public WebElement getbranch(String branchnm) {
 	        String xpath = String.format("//android.widget.Button[@content-desc=\"%s\"]", branchnm);
 	        return driver.findElement(AppiumBy.xpath(xpath));
 	    }
 	 
+	 public void clickItemBtn()
+		{
+			waitForElementTobeClickable(ItemsBtn, driver);
+			ItemsBtn.click();
+		}
+	 
+	 public void ItemClick()
+		{
+			waitForElementTobeClickable(ItemsBtn, driver);
+		 	Item.click();
+		}
+	 public void ItemContentDesc()
+		{
+			waitForElementTobeClickable(ItemsBtn, driver);
+		Itemftech.clear();
+		}
 	 
 	 public boolean isStockVerifyTxtDisplayed()
 		{
@@ -148,11 +174,11 @@ public class UserStockUpdate extends AndroidActions {
 	 
 	 public void searchItem(String ItemName)
 		{
-		 waitForElementTobeClickable(ItemSearchfield, driver);
+		 waitForElementTobeClickable(Searchwarehouse, driver);
 		 
-		 ItemSearchfield.click();
-		 ItemSearchfield.clear();
-		 ItemSearchfield.sendKeys(ItemName);
+		 Searchwarehouse.click();
+		 Searchwarehouse.clear();
+		 Searchwarehouse.sendKeys(ItemName);
 		}
 	 
 	 public void enterStockOnefield(String StockQuantity)
@@ -838,4 +864,9 @@ public class UserStockUpdate extends AndroidActions {
 			BackButton.click();;
 			
 		}
+
+	public List<WebElement> findWarehouseElements() {
+		// TODO Auto-generated method stub
+		return Itemftech;
+	}
 }
