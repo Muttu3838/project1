@@ -12,7 +12,17 @@
   
     <classes>
     
-      <class name="easyStockTestCases.TC_StockSchedule_001"/>
+      <class name="easyStockTestCases.TC_Upload_002">
+        <methods>
+          <include name="beforeEachMethod"/>
+          <include name="teardown"/>
+          <include name="afterEachMethod"/>
+          <include name="setup"/>
+          <include name="afterMethod"/>
+          <include name="uploadOpeningStock"/>
+          <include name="uploadClosingStock"/>
+        </methods>
+      </class> <!-- easyStockTestCases.TC_User_001 -->
      
       <class name="easyStockTestCases.TC_FileVerification_001"/>
       
