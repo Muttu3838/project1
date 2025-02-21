@@ -5,14 +5,22 @@ package easyStockPageObjects;
 
 
 import java.io.IOException;
+import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+
 import org.jspecify.annotations.Nullable;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Pause;
+import org.openqa.selenium.interactions.PointerInput;
+import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
@@ -27,6 +35,7 @@ import easyStockUtilities.InventoryFileParser;
 import easyStockUtilities.ItemParser;
 import easyStockUtilities.InventoryFileParser.ItemQuantityDetails;
 import io.appium.java_client.AppiumBy;
+
 import io.appium.java_client.flutter.android.FlutterAndroidDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
@@ -34,13 +43,13 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 public class UserStockUpdate extends AndroidActions {
 	
 	private FlutterAndroidDriver driver;
-	
+	//private final PointerInput finger;
 	
 	 public UserStockUpdate(FlutterAndroidDriver driver)
 	{   super(driver);
 		this.driver=driver;
 		PageFactory.initElements(new AppiumFieldDecorator(this.driver), this);
-		
+		//this.finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
 	}
 	 
 	 @AndroidFindBy(accessibility = "Verify")
@@ -109,10 +118,30 @@ public class UserStockUpdate extends AndroidActions {
 	 @AndroidFindBy(xpath = "//android.view.View[@content-desc=\"  Warehouses\"]/following-sibling::android.view.View[1]/android.view.View[1]/android.widget.ImageView")
 	 private List<WebElement> Itemftech;
 	 
+	 @AndroidFindBy(xpath = "//android.view.View[@content-desc=\"Stock Verification\"]/following-sibling::android.widget.Button[2]")
+	 private WebElement Filter;
+	 
+	 @AndroidFindBy(xpath = "//android.view.View[(contains(@content-desc, 'Date'))]") //Code need to updated
+	 private WebElement DateBtn;
+	 
+	 @AndroidFindBy(xpath = "//android.widget.Button[@content-desc=\"Select year\"]/preceding-sibling::android.view.View[1]/android.view.View/android.widget.Button")
+	 private WebElement EditDate;
+	 
+	 @AndroidFindBy(xpath = "//android.widget.Button[@content-desc=\"Cancel\"]/preceding-sibling::android.widget.EditText")
+	 private WebElement DateTxt;
+	 
+	 @AndroidFindBy(xpath = "//android.widget.Button[@content-desc=\"OK\"]")
+	 private WebElement Okbtn;
+	 
+	 @AndroidFindBy(xpath = "//android.view.View[@content-desc=\"Sort & Filters\"]/android.widget.Button[1]")
+	 private WebElement closeFilterbtn;
+	 
 	 public WebElement getbranch(String branchnm) {
 	        String xpath = String.format("//android.widget.Button[@content-desc=\"%s\"]", branchnm);
 	        return driver.findElement(AppiumBy.xpath(xpath));
 	    }
+	 
+	 
 	 
 	 public void clickItemBtn()
 		{
@@ -196,7 +225,7 @@ public class UserStockUpdate extends AndroidActions {
 		 ItemSearchfield.clear();
 		}
 	 
-	 	      
+	 
 	 
 	 private void enterStockQuantity() throws InterruptedException, IOException {
 		 
@@ -854,19 +883,80 @@ public class UserStockUpdate extends AndroidActions {
 	 public  void ClickBulkUpload()
 		{
 			waitForElementTobeClickable(BulkUploadbtn, driver);
-			BulkUploadbtn.click();;
+			BulkUploadbtn.click();
 			
 		}
 	 
 	 public  void ClickBack()
 		{
 			waitForElementTobeClickable(BackButton, driver);
-			BackButton.click();;
+			BackButton.click();
 			
 		}
 
 	public List<WebElement> findWarehouseElements() {
 		// TODO Auto-generated method stub
+		//waitForElementToAppear(Itemftech.getFirst(), driver);
 		return Itemftech;
+	}
+	
+	public  void ClickFilter()
+	{
+		waitForElementTobeClickable(Filter, driver);
+		Filter.click();
+		
+	}
+	
+	public  void ClickDate()
+	{
+		waitForElementTobeClickable(DateBtn, driver);
+		DateBtn.click();
+		
+	}
+	
+	/*public void tapAtPosition(int x, int y) {
+        Sequence tap = new Sequence(finger, 1)
+            .addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), x, y))
+            .addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
+            .addAction(new Pause(finger, Duration.ofMillis(200)))
+            .addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+
+        driver.perform(Collections.singletonList(tap));
+    }*/
+	
+	public  void ClickAtPosition(int x,int y)
+	{
+		tapAtPosition(x, y, driver);
+		
+	}
+
+	
+	public  void ClickEdit()
+	{
+		waitForElementTobeClickable(EditDate, driver);
+		EditDate.click();
+		
+	}
+	
+	public  void chooseDate(String EnterDate)
+	{
+		waitForElementTobeClickable(DateTxt, driver);
+		DateTxt.clear();
+		DateTxt.sendKeys(EnterDate);
+		
+	}
+	
+	public  void clickOk()
+	{
+		waitForElementTobeClickable(Okbtn, driver);
+		Okbtn.click();
+		
+	}
+	
+	public  void closeFilterBtn()
+	{
+		waitForElementTobeClickable(closeFilterbtn, driver);
+		closeFilterbtn.click();
+		
 	}
 }

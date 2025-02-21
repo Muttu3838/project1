@@ -43,6 +43,20 @@ public class AndroidActions extends AppiumUtils{
 		}while(canScrollMore);
 	}
 	
+	public void scrollToEndActionwithdirection(String direction)
+	{
+		boolean canScrollMore;
+		do
+		{
+		 canScrollMore = (Boolean) ((JavascriptExecutor) driver).executeScript("mobile: scrollGesture", ImmutableMap.of(
+			    "left", 100, "top", 500, "width", 200, "height", 500,
+			    "direction", direction,
+			    "percent", 1.0
+			    
+			));
+		}while(canScrollMore);
+	}
+	
 	
 	public void scrollToText(String text)
 	{
@@ -55,6 +69,15 @@ public class AndroidActions extends AppiumUtils{
 		 driver.executeScript("mobile: scrollGesture",ImmutableMap.of(
 					"left", 100, "top", 200, "width",200,  "height", 200,
 					"direction", "down",
+					"percent", d
+					));
+	}
+	
+	public void scrollTwithdirection(int d,String direction)
+	{
+		 driver.executeScript("mobile: scrollGesture",ImmutableMap.of(
+					"left", 100, "top", 200, "width",200,  "height", 200,
+					"direction", direction,
 					"percent", d
 					));
 	}
@@ -105,7 +128,7 @@ public class AndroidActions extends AppiumUtils{
 		}while(canScrollMore);
 	}
 	
-	public void scrollDown(String direction) {
+	public void scrollwithDirection(String direction) {
 	        try {
 	            driver.executeScript("mobile: swipeGesture", ImmutableMap.of(
 	                "direction", direction,

@@ -2,10 +2,12 @@ package easyStockUtilities;
 
 import java.io.File;
 import java.time.Duration;
-import java.util.Random;
 
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Pause;
+import org.openqa.selenium.interactions.PointerInput;
+import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
@@ -14,6 +16,7 @@ import org.testng.asserts.SoftAssert;
 //import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.flutter.android.FlutterAndroidDriver;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import org.w3c.dom.*;
@@ -23,14 +26,13 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import java.util.*;
 
 public abstract class AppiumUtils {
 
 	public AppiumDriverLocalService service;
+	
+	
 	
 	
 	private static final Random random = new Random();
@@ -219,7 +221,20 @@ public abstract class AppiumUtils {
 	        }
 
 	        return dataList;
+	 }
+	 
+	 
+	 public void tapAtPosition(int x, int y, FlutterAndroidDriver driver) {
+		 PointerInput finger=new PointerInput(PointerInput.Kind.TOUCH, "finger");
+	        Sequence tap = new Sequence(finger, 1)
+	            .addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), x, y))
+	            .addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
+	            .addAction(new Pause(finger, Duration.ofMillis(200)))
+	            .addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+
+	        driver.perform(Collections.singletonList(tap));
 	    }
+
 	 
 	 
 	 //Methods to get Opening or Closing Stock
