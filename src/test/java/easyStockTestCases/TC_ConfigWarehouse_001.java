@@ -28,7 +28,7 @@ public class TC_ConfigWarehouse_001 extends BaseClass {
 				//Implemented Addwarehouse from subscription
 				
 				TC_subscriptionAddon_001 subscription=new TC_subscriptionAddon_001();
-				subscription.Addon("warehouse",5);
+				subscription.Addonbywallet("warehouse",5);
 				System.out.println("Warehouses got added successfully");
 				conf.settingClick();
 				conf.confWarehouseClick();

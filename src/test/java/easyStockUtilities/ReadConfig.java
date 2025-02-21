@@ -63,6 +63,12 @@ public class ReadConfig {
 	return usernumber;
 	}
 	
+	public String getfilterDate()
+	{
+	String filterdate=pro.getProperty("filterdate");
+	return filterdate;
+	}
+	
 	
 	
 }

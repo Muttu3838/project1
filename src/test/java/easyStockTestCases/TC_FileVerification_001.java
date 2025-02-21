@@ -13,7 +13,7 @@ public class TC_FileVerification_001 extends BaseClass {
 
 	public TC_FileVerification_001() {
         // Call this in the constructor to skip login for this test class
-        setSkipLogin(true);
+        //setSkipLogin(true);
         setSkipProfileClick(true);
     }
 	
@@ -142,7 +142,7 @@ public class TC_FileVerification_001 extends BaseClass {
 		LoginPage lp=new LoginPage(driver);
 		
 		
-		lp.FinalBack();
+		//lp.FinalBack();
 		logger.info("Login Succesfull and clicked profile btn to expose Verify module");
 		
 		us.clickVerify();

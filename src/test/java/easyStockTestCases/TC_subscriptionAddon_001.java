@@ -13,11 +13,11 @@ public class TC_subscriptionAddon_001 extends BaseClass {
     int numof=1;
     @Test()
     public void Addon() throws InterruptedException {
-    	AddonbyUpi(addonName,numof);  // Call the Addon by Upi method with the default value or dynamic value
+    	Addonbywallet(addonName,numof);  // Call the Addon by Upi method with the default value or dynamic value
     	//Addon(addonName,numof);  // Call the Addon by wallet method with the default value or dynamic value
     }
 
-    public void Addon(String addonName,int numof) throws InterruptedException {
+    public void Addonbywallet(String addonName,int numof) throws InterruptedException {
        
         SubscriptionPage sp = new SubscriptionPage(driver);
         AndroidActions scroll = new AndroidActions(driver);
@@ -78,15 +78,15 @@ public class TC_subscriptionAddon_001 extends BaseClass {
        //String txt=sp.setAmountdeatils();
        //System.out.println(txt);
         //Thread.sleep(2000);
-        sp.setProceedtopay2();
+       // sp.setProceedtopay2();
         //sp.setWalletcard();
         //Thread.sleep(2000);
         //sp.setBackToPayment();
-        //sp.setpaybtn();
+        sp.setpaybtn();
         //sp.setTestWalletprocced();
 
         // Scroll to the bottom
-        scroll.scrollTwithpercentAction(1);
+        //scroll.scrollTwithpercentAction(1);
         
         // Handle OTP flow
         sp.setOtpClick();

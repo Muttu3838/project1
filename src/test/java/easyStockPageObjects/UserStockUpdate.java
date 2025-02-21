@@ -203,6 +203,14 @@ public class UserStockUpdate extends AndroidActions {
 	 
 	 public void searchItem(String ItemName)
 		{
+		 waitForElementTobeClickable(ItemSearchfield, driver);
+		 
+		 ItemSearchfield.click();
+		 ItemSearchfield.clear();
+		 ItemSearchfield.sendKeys(ItemName);
+		}
+	 public void searchItem2(String ItemName)
+		{
 		 waitForElementTobeClickable(Searchwarehouse, driver);
 		 
 		 Searchwarehouse.click();
