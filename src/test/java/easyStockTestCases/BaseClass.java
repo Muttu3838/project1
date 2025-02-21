@@ -106,7 +106,7 @@ public class BaseClass extends AppiumUtils {
 	    options = new UiAutomator2Options();
 		                                   //Samsung SM-M36B API 34 , Nothing A015 API 34  ,OPPO CPH2239 API 20, Xiaomi 23028RN4DI
 		options.setCapability("deviceName", "Xiaomi 23028RNCAI"); //("Pixel 9 API 35");Pixel 9 pro API 33
-		options.setCapability("app", System.getProperty("user.dir") + "/src/test/java/resources/ES_1051_3101_MS.apk");
+		options.setCapability("app", System.getProperty("user.dir") + "/src/test/java/resources/ES_1730_1702_MS_INOUT.apk");
 		//options.setCapability("app", "E://Product Management//EasyStock_V1//src//test//java//resources//ES_1100_0301_MWBS.apk");
 		options.setAutoGrantPermissions(true);
 		options.setCapability("unicodeKeyboard", true);

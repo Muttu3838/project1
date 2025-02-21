@@ -52,10 +52,10 @@ public class UploadPage extends AndroidActions {
 	@AndroidFindBy(accessibility = "Select file type")
 	private WebElement SelectFileType;
 	
-	@AndroidFindBy(accessibility = "XML")
+	@AndroidFindBy(accessibility = "Tally XML")
 	private WebElement SelectXML;
 	
-	@AndroidFindBy(accessibility = "ASCII")
+	@AndroidFindBy(accessibility = "Tally ASCII")
 	private WebElement SelectASCII;
 	
 	@AndroidFindBy(accessibility = "upload your file here\nBrowse")

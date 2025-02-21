@@ -1,7 +1,6 @@
 package easyStockUtilities;
 
 import java.util.List;
-import java.util.ArrayList;
 import org.openqa.selenium.WebElement;
 import org.apache.log4j.Logger;
 import org.apache.log4j.LogManager;
@@ -43,36 +42,52 @@ public class InventoryDetailsUtil {
     private WarehouseDetails parseWarehouseContent(String contentDesc) {
         try {
             String[] lines = contentDesc.split("\n");
-            if (lines.length < 3) {
-                logger.warn("Invalid content description format: "+ contentDesc);
+            if (lines.length < 2) {  // Changed minimum required lines to 2
+                logger.warn("Invalid content description format: " + contentDesc);
                 return null;
             }
 
             String warehouseName = lines[0].trim();
             double shortQuantity = 0.0;
             double excessQuantity = 0.0;
-            
-            // Parse second line which may or may not contain Short/Excess
-            String[] quantityParts = lines[1].split(":");
-            if (quantityParts.length > 1) {
-                String quantityType = quantityParts[0].trim().toLowerCase();
-                double quantity = parseNumber(quantityParts[1]);
-                
-                if (quantityType.contains("short")) {
-                    shortQuantity = quantity;
-                } else if (quantityType.contains("excess")) {
-                    excessQuantity = quantity;
+            double enteredQuantity;
+            double tallyStock;
+
+            // Check if we have the format with Short/Excess line
+            if (lines.length >= 3) {
+                // Try to parse second line for Short/Excess
+                String[] quantityParts = lines[1].split(":");
+                if (quantityParts.length > 1) {
+                    String quantityType = quantityParts[0].trim().toLowerCase();
+                    double quantity = parseNumber(quantityParts[1]);
+
+                    if (quantityType.contains("short")) {
+                        shortQuantity = quantity;
+                    } else if (quantityType.contains("excess")) {
+                        excessQuantity = quantity;
+                    }
                 }
+                
+                // Parse stock values from the third line
+                String[] stockParts = lines[2].split("/");
+                enteredQuantity = parseNumber(stockParts[0]);
+                tallyStock = parseNumber(stockParts[1]);
+            } else {
+                // Simple format without Short/Excess line
+                String[] stockParts = lines[1].split("/");
+                enteredQuantity = parseNumber(stockParts[0]);
+                tallyStock = parseNumber(stockParts[1]);
             }
 
-            // Parse stock values (e.g., "-15.0/5.0")
-            String[] stockParts = lines[2].split("/");
-            double enteredQuantity = parseNumber(stockParts[0]);
-            double tallyStock = parseNumber(stockParts[1]);
-
-            return new WarehouseDetails(warehouseName, shortQuantity, excessQuantity,enteredQuantity, tallyStock);
+            return new WarehouseDetails(
+                warehouseName,
+                shortQuantity,
+                excessQuantity,
+                enteredQuantity,
+                tallyStock
+            );
         } catch (Exception e) {
-            logger.error("Failed to parse warehouse content: "+ contentDesc, e);
+            logger.error("Failed to parse warehouse content: " + contentDesc, e);
             return null;
         }
     }

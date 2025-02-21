@@ -20,7 +20,7 @@ public class BranchPage extends AndroidActions {
 		PageFactory.initElements(new AppiumFieldDecorator(this.driver), this);
 		
 	}
-	
+	 
 	@AndroidFindBy(accessibility = "Branch")
 	private WebElement sidebarbranch;
 	
