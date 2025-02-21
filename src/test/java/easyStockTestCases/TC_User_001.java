@@ -127,7 +127,7 @@ public class TC_User_001 extends BaseClass {
 			
 			TC_subscriptionAddon_001 Subscribepage=new TC_subscriptionAddon_001();
 			
-			Subscribepage.Addon("User",1);
+			Subscribepage.Addonbywallet("User",1);
 			logger.info("Added 1 User from subscription");
 			
 			lp.setprofilebtn();

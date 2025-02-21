@@ -45,7 +45,7 @@ public class SubscriptionPage extends AndroidActions {
 	@AndroidFindBy(accessibility = "Proceed to Pay")
 	private WebElement proceedtopay;
 	
-	@AndroidFindBy(accessibility  = "Wallets")
+	@AndroidFindBy(xpath  = "//android.widget.RelativeLayout[@resource-id=\"com.mwb.stock_taker:id/rl_wallet_payment_mode\"]")
 	private WebElement walletmode;
 	
 	@FindBy(xpath  = "//android.view.View[@content-desc=\"Pay by UPI ID\"]")
@@ -55,7 +55,7 @@ public class SubscriptionPage extends AndroidActions {
 	@FindBy(xpath  = "(//android.widget.Button[@text=\"Use\"])[1]")
 	private WebElement UsePassbtn;
 			
-	@AndroidFindBy(xpath  = "//android.view.View[@text=\"Wallet icon Test Wallet\"]")
+	@AndroidFindBy(xpath  = "//android.widget.ImageView[@resource-id=\"com.mwb.stock_taker:id/iv_cf_wallet_app\"]")
 	private WebElement testwallet;
 	//android.widget.TextView[@text=\"Amount Details\"]/parent::android.view.View/android.view.View/android.widget.Button
 	@FindBy(xpath  = "//android.widget.Button[@text=\"Back to Payment Methods\"]")

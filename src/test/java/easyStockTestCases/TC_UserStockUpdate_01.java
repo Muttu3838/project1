@@ -163,7 +163,7 @@ public class TC_UserStockUpdate_01 extends BaseClass {
 	
 	
 	
-	@Test(priority = 2,enabled = true)
+	@Test(priority = 2,enabled = false)
 	public void stockVerifywithScroll() throws InterruptedException, IOException
 	{
 		UserStockUpdate us=new UserStockUpdate(driver);

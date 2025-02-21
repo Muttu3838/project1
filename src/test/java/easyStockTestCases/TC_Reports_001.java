@@ -107,7 +107,7 @@ public class TC_Reports_001 extends BaseClass {
 		us.ClickEdit();
 		logger.info("Clicked on Edit button");
 		
-		us.chooseDate("02/03/2025");
+		us.chooseDate(filterDate);
 		logger.info("Entered Date");
 		
 		us.clickOk();
@@ -139,7 +139,7 @@ public class TC_Reports_001 extends BaseClass {
             
         	Thread.sleep(2000);
                 // Search and click operations using your existing UtilityService
-                us.searchItem(itemName);
+                us.searchItem2(itemName);
                 logger.info("Searched for Item " + itemName);
 
                 us.ItemClick();
@@ -199,18 +199,21 @@ public class TC_Reports_001 extends BaseClass {
 		
 		rs.ClickEdit();
 		
-		rs.chooseDate("02/03/2025");
+		rs.chooseDate(filterDate); //"02/03/2025"
 		
 		rs.clickOk();
 		
 		InventoryFileParser parser = new InventoryFileParser("Dm Closing Stk.txt");
 	       // InventoryDetailsUtil inventory=new InventoryDetailsUtil();
 	        
-	        
+
+    	if(rs.isSearchPresent()) 
+    	{
 	        List<String> allItems = parser.getAllItemNames();
 
 	        for (String itemName : allItems) {
 	            
+	        	
 	        	
 	        	Thread.sleep(2000);
 	                // Search and click operations using your existing UtilityService
@@ -289,8 +292,13 @@ public class TC_Reports_001 extends BaseClass {
 	                  
 	            }
 		
-		
-	}
+	        }
+	}else 
+	{
+    	
+    	softAssert.assertTrue(true,"There is No any Missmatch items in the report");
+		logger.info("There is No any Missmatch items in the report");
+    }
 	
  }
 

@@ -71,7 +71,7 @@ public class TC_Upload_002 extends BaseClass {
 				System.out.println("Subscription count is '"+count+"' need to get more Warehouses");
 				
 				TC_subscriptionAddon_001 subscription=new TC_subscriptionAddon_001();
-				subscription.Addon("warehouse",5);
+				subscription.Addonbywallet("warehouse",5);
 				uploadExistingWarehouse();
 			}
 			configure.Configure("All");
@@ -161,7 +161,7 @@ public class TC_Upload_002 extends BaseClass {
 				logger.info("Subscription count is '"+count+"' need to get more Warehouses");
 				//need to implement Addwarehouse from subscription
 				TC_subscriptionAddon_001 subscription=new TC_subscriptionAddon_001();
-				subscription.Addon("warehouse",5);
+				subscription.Addonbywallet("warehouse",5);
 				logger.info("'"+count+"' warehouses purchased need & trying to configure warehouses again");
 				uploadExistingWarehouse();
 			}

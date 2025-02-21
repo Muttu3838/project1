@@ -76,7 +76,7 @@ public class TC_CreateBrach_001 extends BaseClass {
 			lp.setprofilebtn();
 			TC_subscriptionAddon_001 Subscribepage=new TC_subscriptionAddon_001();
 			
-			Subscribepage.Addon("branch",1);
+			Subscribepage.Addonbywallet("branch",1);
 			
 			
 			CreateBranchTest();

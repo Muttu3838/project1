@@ -22,4 +22,6 @@ public class WarehouseDetails {
     public double getExcessQuantity() { return excessQuantity; }
     public double getEnteredQuantity() { return enteredQuantity; }
     public double getTallyStock() { return tallyStock; }
+
+	
 }

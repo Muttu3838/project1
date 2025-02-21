@@ -120,6 +120,12 @@ public class ReportsPage extends AndroidActions {
 		 serachbtn.sendKeys(ItemName);
 		}
 		
+		public boolean isSearchPresent() throws InterruptedException
+		{
+			Thread.sleep(1000);
+		 return isElementPresent(serachbtn);
+		}
+		
 		public double TallyStock()
 		{
 			try {

@@ -56,6 +56,7 @@ public class BaseClass extends AppiumUtils {
 	public String branchnm=readconfig.getBranchName();
 	public String user=readconfig.getUser();
 	public String usernumber=readconfig.getUsernumber();
+	public String filterDate=readconfig.getfilterDate();
 	
 	public Logger logger;
 	public static FlutterAndroidDriver driver;
