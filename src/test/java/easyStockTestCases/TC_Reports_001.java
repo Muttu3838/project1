@@ -38,7 +38,7 @@ public class TC_Reports_001 extends BaseClass {
 	
 	
 	
-	@Test
+	@Test(priority = 0)
     public void testInventoryDetails() throws IOException, InterruptedException {
 		
 		UserStockUpdate us=new UserStockUpdate(driver);
@@ -260,7 +260,7 @@ public class TC_Reports_001 extends BaseClass {
 	
  }
 
-	@Test
+	@Test(priority = 1)
 	public void MissmatchItemsReport2() throws IOException, InterruptedException {
 	    UserStockUpdate us = new UserStockUpdate(driver);
 	    ReportsPage rs = new ReportsPage(driver);
@@ -270,7 +270,7 @@ public class TC_Reports_001 extends BaseClass {
 	 // Initialize the data reader and load stored data
 	    InventoryDataReader dataReader = new InventoryDataReader();
 	    List<ItemInventoryDetails> storedDetails = dataReader.readInventoryData(filterDate);
-	    
+	   
 	    
 		
 		lp.setprofilebtn();
@@ -366,6 +366,10 @@ public class TC_Reports_001 extends BaseClass {
 	                //dataReader.printItemSummary(itemName);
 	            }
 	        }
+	    }else 
+	    {
+	    	softAssert.assertTrue(true,"There is no Missmatch items in the Missmatch report");
+			logger.info("There is no Missmatch items in the Missmatch report");
 	    }
 	}	
 	

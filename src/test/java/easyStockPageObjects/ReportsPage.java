@@ -4,6 +4,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 import easyStockUtilities.AndroidActions;
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.flutter.android.FlutterAndroidDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
@@ -54,6 +55,10 @@ public class ReportsPage extends AndroidActions {
 	 @AndroidFindBy(xpath = "//android.widget.EditText")
 	 private WebElement serachbtn;
 	 
+	
+	 @AndroidFindBy(xpath = "//android.view.View[@content-desc=\"Select Warehouse\"]/preceding-sibling::android.widget.Button")
+	 private WebElement DiffQuantity;
+	 
 	 public  void reportsBtn()
 		{
 			waitForElementTobeClickable(reportsbtn, driver);
@@ -88,7 +93,22 @@ public class ReportsPage extends AndroidActions {
 			EditDate.click();
 			
 		}
-		
+	 
+	//android.widget.Button[@content-desc="Branch08"]
+	 public WebElement getbranch(String branchnm) {
+	        String xpath = String.format("//android.widget.Button[@content-desc=\"%s\"]", branchnm);
+	        return driver.findElement(AppiumBy.xpath(xpath));
+	    }
+	 
+	 public  void ClickBranch(String BranchName)
+		{
+			waitForElementTobeClickable(getbranch(BranchName), driver);
+			getbranch(BranchName).click();
+			
+		}
+	 
+	 
+	 
 		public  void chooseDate(String EnterDate)
 		{
 			waitForElementTobeClickable(DateTxt, driver);
