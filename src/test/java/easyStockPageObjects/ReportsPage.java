@@ -57,7 +57,7 @@ public class ReportsPage extends AndroidActions {
 	 
 	
 	 @AndroidFindBy(xpath = "//android.view.View[@content-desc=\"Select Warehouse\"]/preceding-sibling::android.widget.Button")
-	 private WebElement DiffQuantity;
+	 private WebElement BranchBtn;
 	 
 	 public  void reportsBtn()
 		{
@@ -87,10 +87,17 @@ public class ReportsPage extends AndroidActions {
 			
 		}
 	 
-	 public  void ClickEdit()
+	 public  void clickEdit()
 		{
 			waitForElementTobeClickable(EditDate, driver);
 			EditDate.click();
+			
+		}
+	 
+	 public  void clickBranch()
+		{
+			waitForElementTobeClickable(BranchBtn, driver);
+			BranchBtn.click();
 			
 		}
 	 
@@ -100,7 +107,7 @@ public class ReportsPage extends AndroidActions {
 	        return driver.findElement(AppiumBy.xpath(xpath));
 	    }
 	 
-	 public  void ClickBranch(String BranchName)
+	 public  void selectBranch(String BranchName)
 		{
 			waitForElementTobeClickable(getbranch(BranchName), driver);
 			getbranch(BranchName).click();

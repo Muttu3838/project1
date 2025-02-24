@@ -155,7 +155,7 @@ public class TC_Reports_001 extends BaseClass {
 		
 		rs.ClickAtPosition(129, 786);
 		
-		rs.ClickEdit();
+		rs.clickEdit();
 		
 		rs.chooseDate(filterDate); //"02/03/2025"
 		
@@ -251,12 +251,7 @@ public class TC_Reports_001 extends BaseClass {
 	            }
 		
 	        }
-	}else 
-	{
-    	
-    	softAssert.assertTrue(true,"There is No any Missmatch items in the report");
-		logger.info("There is No any Missmatch items in the report");
-    }
+	}
 	
  }
 
@@ -274,22 +269,39 @@ public class TC_Reports_001 extends BaseClass {
 	    
 		
 		lp.setprofilebtn();
+		logger.info("Clicked on profile");
 		
 		rs.reportsBtn();
+		logger.info("Clicked on reports");
 		
 		Thread.sleep(2000);
 		rs.missMatchReportBtn();
+		logger.info("Clicked on missmatch report");
 		
 		rs.filterBtn();
+		logger.info("Clicked on filter button");
 		Thread.sleep(3000);
 		
-		rs.ClickAtPosition(129, 786);
+        rs.clickBranch();
+        logger.info("Clicked on branch");
 		
-		rs.ClickEdit();
+		rs.selectBranch(branchnm);
+		logger.info("slected branch as"+branchnm);
+		
+		rs.ClickAtPosition(129, 786);
+		logger.info("Clicked on date button");
+		
+		rs.clickEdit();
+		logger.info("Clicked on Edit date");
 		
 		rs.chooseDate(filterDate); //"02/03/2025"
+		logger.info("Entered date as"+filterDate);
 		
 		rs.clickOk();
+		logger.info("Clicked on ok button");
+		
+		
+		
 		
 		InventoryFileParser parser = new InventoryFileParser("Dm Closing Stk.txt");
 	       // InventoryDetailsUtil inventory=new InventoryDetailsUtil();
@@ -366,10 +378,14 @@ public class TC_Reports_001 extends BaseClass {
 	                //dataReader.printItemSummary(itemName);
 	            }
 	        }
-	    }else 
+	    }else if(rs.isSearchPresent()==false) 
 	    {
 	    	softAssert.assertTrue(true,"There is no Missmatch items in the Missmatch report");
 			logger.info("There is no Missmatch items in the Missmatch report");
+	    }else 
+	    {
+	    	softAssert.assertTrue(false,"Error with loading/Unknow error while fetching report data");
+			logger.error("Error with loading/Unknow error while fetching report data");
 	    }
 	}	
 	
