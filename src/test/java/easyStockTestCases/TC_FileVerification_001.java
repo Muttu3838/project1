@@ -139,7 +139,7 @@ public class TC_FileVerification_001 extends BaseClass {
 	{
 		FilesVerification us=new FilesVerification(driver);
 		
-		LoginPage lp=new LoginPage(driver);
+		//LoginPage lp=new LoginPage(driver);
 		
 		
 		//lp.FinalBack();
