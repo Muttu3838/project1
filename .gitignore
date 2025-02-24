@@ -6,3 +6,5 @@ test-output/
 *.log
 /test-output/Default suite
 /target
+/InventoryReport
+/inventory_records
