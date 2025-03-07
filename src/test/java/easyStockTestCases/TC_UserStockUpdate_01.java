@@ -41,7 +41,7 @@ public class TC_UserStockUpdate_01 extends BaseClass {
 		
 		us.clickVerify();
 		
-		us.clickBrach();
+		us.clickBranch();
 		
 		us.selectbranch(branchnm);
 		
@@ -67,7 +67,7 @@ public class TC_UserStockUpdate_01 extends BaseClass {
 		
 		us.clickVerify();
 		
-		us.clickBrach();
+		us.clickBranch();
 		
 		us.selectbranch(branchnm);
 		
@@ -182,7 +182,7 @@ public class TC_UserStockUpdate_01 extends BaseClass {
 		us.clickVerify();
 		logger.info("Clicked on Verify");
 		
-		us.clickBrach();
+		us.clickBranch();
 		logger.info("Clicked on Branch");
 		
 		us.selectbranch(branchnm);

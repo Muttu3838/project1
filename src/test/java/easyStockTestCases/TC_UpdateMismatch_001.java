@@ -24,7 +24,7 @@ public class TC_UpdateMismatch_001 extends BaseClass  {
 		us.clickVerify();
 		logger.info("Clicked on Verify button");
 		
-		us.clickBrach();
+		us.clickBranch();
 		logger.info("Clicked on Branch Dropdown");
 		
 		us.selectbranch(branchnm);

@@ -16,8 +16,6 @@ import easyStockUtilities.InventoryDataReader;
 import easyStockUtilities.InventoryDetailsUtil;
 import easyStockUtilities.InventoryFileManager;
 import easyStockUtilities.InventoryFileParser;
-import easyStockUtilities.InventoryManager;
-import easyStockUtilities.InventoryManager.ItemDetails;
 import easyStockUtilities.ItemInventoryDetails;
 import easyStockUtilities.WarehouseDetails;
 
@@ -68,7 +66,7 @@ public class TC_Reports_001 extends BaseClass {
 		us.closeFilterBtn();
 		logger.info("Clicked on close button in filter drawer");
 		
-		us.clickBrach();
+		us.clickBranch();
 		logger.info("Clicked on Branch Dropdown");
 		
 		us.selectbranch(branchnm);
@@ -288,17 +286,17 @@ public class TC_Reports_001 extends BaseClass {
 		rs.selectBranch(branchnm);
 		logger.info("slected branch as"+branchnm);
 		
-		rs.ClickAtPosition(129, 786);
-		logger.info("Clicked on date button");
-		
-		rs.clickEdit();
-		logger.info("Clicked on Edit date");
-		
-		rs.chooseDate(filterDate); //"02/03/2025"
-		logger.info("Entered date as"+filterDate);
-		
-		rs.clickOk();
-		logger.info("Clicked on ok button");
+//		rs.ClickAtPosition(129, 786);
+//		logger.info("Clicked on date button");
+//		
+//		rs.clickEdit();
+//		logger.info("Clicked on Edit date");
+//		
+//		rs.chooseDate(filterDate); //"02/03/2025"
+//		logger.info("Entered date as"+filterDate);
+//		
+//		rs.clickOk();
+//		logger.info("Clicked on ok button");
 		
 		
 		
@@ -376,7 +374,10 @@ public class TC_Reports_001 extends BaseClass {
 	                
 	                // Optional: Print detailed summary for the item
 	                //dataReader.printItemSummary(itemName);
-	            }
+	            }else {
+        			
+        			logger.error("But there is error with validation");
+        		}
 	        }
 	    }else if(rs.isSearchPresent()==false) 
 	    {
@@ -388,6 +389,59 @@ public class TC_Reports_001 extends BaseClass {
 			logger.error("Error with loading/Unknow error while fetching report data");
 	    }
 	}	
+	
+	@Test(enabled = false)
+	public void masterReport() throws InterruptedException, IOException 
+	{
+		
+		UserStockUpdate us = new UserStockUpdate(driver);
+	    ReportsPage rs = new ReportsPage(driver);
+	    LoginPage lp = new LoginPage(driver);
+	    
+	    // Initialize the data reader and load stored data
+	 // Initialize the data reader and load stored data
+	    InventoryDataReader dataReader = new InventoryDataReader();
+	    List<ItemInventoryDetails> storedDetails = dataReader.readInventoryData(filterDate);
+	   
+	    
+		
+		lp.setprofilebtn();
+		logger.info("Clicked on profile");
+		
+		rs.reportsBtn();
+		logger.info("Clicked on reports");
+		
+		Thread.sleep(2000);
+		rs.missMatchReportBtn();
+		logger.info("Clicked on missmatch report");
+		
+		rs.filterBtn();
+		logger.info("Clicked on filter button");
+		Thread.sleep(3000);
+		
+        rs.clickBranch();
+        logger.info("Clicked on branch");
+		
+		rs.selectBranch(branchnm);
+		logger.info("slected branch as"+branchnm);
+		
+//		rs.ClickAtPosition(129, 786);
+//		logger.info("Clicked on date button");
+//		
+//		rs.clickEdit();
+//		logger.info("Clicked on Edit date");
+//		
+//		rs.chooseDate(filterDate); //"02/03/2025"
+//		logger.info("Entered date as"+filterDate);
+//		
+//		rs.clickOk();
+//		logger.info("Clicked on ok button");
+		
+		
+		
+		
+		
+	}
 	
     
 }

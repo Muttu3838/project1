@@ -172,7 +172,7 @@ public class UserStockUpdate extends AndroidActions {
 		      verifybtn.click();
 		}
 	 
-	 public void clickBrach()
+	 public void clickBranch()
 		{   
 		    waitForElementTobeDisappear(nomorewarehousemsg, driver);
 			waitForElementTobeClickable(branchclick, driver);
