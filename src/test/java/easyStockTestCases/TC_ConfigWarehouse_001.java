@@ -16,7 +16,7 @@ public class TC_ConfigWarehouse_001 extends BaseClass {
 		 conf.branchClick();
 		 conf.selectbranch(branchnm);
 		 String subcount=conf.subscriptionCount();
-	        System.out.println("Subscription count is "+subcount);
+	        System.out.println(subcount);
 	        
 	        int count = Integer.parseInt(subcount.substring(subcount.lastIndexOf(":") + 1).trim());
 		       

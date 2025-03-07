@@ -32,6 +32,8 @@
       <class name="easyStockTestCases.TC_UserStockUpdate_01"/>
       
       <class name="easyStockTestCases.TC_UpdateMismatch_001"/>
+      
+      <class name="easyStockTestCases.TC_Reports_001"/>
     
     </classes>
     

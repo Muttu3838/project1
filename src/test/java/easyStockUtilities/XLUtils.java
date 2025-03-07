@@ -56,7 +56,7 @@ public class XLUtils {
 		cell=row.getCell(colnum);
 		String data;
 		try 
-		{
+		{ 
 			DataFormatter formatter = new DataFormatter();
             String cellData = formatter.formatCellValue(cell);
             return cellData;
