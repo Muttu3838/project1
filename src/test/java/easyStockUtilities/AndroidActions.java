@@ -1,5 +1,7 @@
 package easyStockUtilities;
 
+import java.util.NoSuchElementException;
+
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebElement;
@@ -55,6 +57,35 @@ public class AndroidActions extends AppiumUtils{
 			    
 			));
 		}while(canScrollMore);
+	}
+	
+	public void scrollUntilElementVisible(String direction, WebElement element) {
+	    boolean canScrollMore;
+	    boolean isElementVisible = false;
+	    
+	    do {
+	        try {
+	            // Check if element is visible
+	            isElementVisible = element.isDisplayed();
+	            if (isElementVisible) {
+	                break; // Element found, exit the loop
+	            }
+	        } catch (Exception e) {
+	            // Element not found, continue scrolling
+	        }
+	        
+	        // Perform scroll gesture
+	        canScrollMore = (Boolean) ((JavascriptExecutor) driver).executeScript("mobile: scrollGesture", ImmutableMap.of(
+	            "left", 100, "top", 500, "width", 200, "height", 500,
+	            "direction", direction,
+	            "percent", 1.0
+	        ));
+	        
+	    } while (canScrollMore && !isElementVisible);
+	    
+	    if (!isElementVisible) {
+	        throw new NoSuchElementException("Element not found after scrolling to the end: " + element);
+	    }
 	}
 	
 	

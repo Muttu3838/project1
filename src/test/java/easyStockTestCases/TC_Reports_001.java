@@ -390,8 +390,8 @@ public class TC_Reports_001 extends BaseClass {
 	    }
 	}	
 	
-	@Test(enabled = false)
-	public void masterReport() throws InterruptedException, IOException 
+	@Test(enabled = true)
+	public void WarehousewiseReport() throws InterruptedException, IOException 
 	{
 		
 		UserStockUpdate us = new UserStockUpdate(driver);
@@ -412,7 +412,7 @@ public class TC_Reports_001 extends BaseClass {
 		logger.info("Clicked on reports");
 		
 		Thread.sleep(2000);
-		rs.missMatchReportBtn();
+		rs.warehouseWiseReportBtn();
 		logger.info("Clicked on missmatch report");
 		
 		rs.filterBtn();
@@ -425,19 +425,151 @@ public class TC_Reports_001 extends BaseClass {
 		rs.selectBranch(branchnm);
 		logger.info("slected branch as"+branchnm);
 		
-//		rs.ClickAtPosition(129, 786);
-//		logger.info("Clicked on date button");
-//		
-//		rs.clickEdit();
-//		logger.info("Clicked on Edit date");
-//		
-//		rs.chooseDate(filterDate); //"02/03/2025"
-//		logger.info("Entered date as"+filterDate);
-//		
-//		rs.clickOk();
-//		logger.info("Clicked on ok button");
+		rs.ClickAtPosition(129, 786);
+		logger.info("Clicked on date button");
 		
+		rs.clickEdit();
+		logger.info("Clicked on Edit date");
 		
+		rs.chooseDate(filterDate); //"02/03/2025" filterDate
+		logger.info("Entered date as"+filterDate);
+		
+		rs.clickOk();
+		logger.info("Clicked on ok button");
+		
+		InventoryFileParser parser = new InventoryFileParser("Dm Closing Stk.txt");
+	       // InventoryDetailsUtil inventory=new InventoryDetailsUtil();
+	        
+
+	    if(rs.isSearchPresent()) {
+	        List<String> allItems = parser.getAllItemNames();
+
+	        for (String itemName : allItems) {
+	            Thread.sleep(2000);
+	            rs.searchItem(itemName);
+	            logger.info("----------------------- Searched for Item " + itemName+"-----------------------");
+	            
+	            us.scrollUntilElementVisible("right",rs.DiffStockElement());
+	            logger.info("scrolled to right");
+	            
+	            // Get stored details for current item
+	            ItemInventoryDetails storedItemDetails = dataReader.getItemDetails(itemName);
+	            List <WarehouseDetails> warehousedetail = storedItemDetails.getWarehouseDetails();
+	            if(storedItemDetails != null && storedItemDetails.getItemName().equalsIgnoreCase(itemName)) {
+	              
+	            	
+	            	//Settings All Total values as 0 primarily
+	            	double TotalTallyStock = 0;
+	                double ToatalEnteredQuantity = 0;
+	                double TotalDiffQuantity = 0;
+	                
+	                for(WarehouseDetails warehouse : warehousedetail) 
+	                {
+	                	String WarehouseNm=warehouse.getWarehouseName();
+	                	
+	                	//Getting All values from UI 
+	                	Double TallyStock=rs.TallyStockbyWarehouse(WarehouseNm);
+	                	Double EnteredQuantity=rs.EnteredQuantitybyWarehouse(WarehouseNm);
+	                	Double DiffQuantity=rs.DiffQuantitybyWarehouse(WarehouseNm);
+	                	
+	                	TotalTallyStock=TotalTallyStock+TallyStock;
+	                	ToatalEnteredQuantity=ToatalEnteredQuantity+EnteredQuantity;
+	                	TotalDiffQuantity=TotalDiffQuantity+DiffQuantity;
+	                	
+	                	logger.info("******For Warehouse: "+WarehouseNm+" *******");
+	                	//Warehousewise Quantity Verification
+	                	
+	                	if(TallyStock==warehouse.getTallyStock())
+	                	{
+	                		softAssert.assertEquals(TallyStock, warehouse.getTallyStock());
+	                		logger.info("Tally stock from UI is: " + TallyStock + " & Tally stock from Stock verification is: "+warehouse.getTallyStock()+" for Warehouse "+WarehouseNm+" & for Item "+storedItemDetails.getItemName());
+	                		
+	                	}
+	                	
+	                	if(EnteredQuantity==warehouse.getEnteredQuantity())
+	                	{
+	                		softAssert.assertEquals(EnteredQuantity, warehouse.getEnteredQuantity());
+	                		logger.info("Entered Quantity from UI is: " + EnteredQuantity + " & Entered Quantity from Stock verification is: "+warehouse.getEnteredQuantity()+" for Warehouse "+WarehouseNm+" & for Item "+storedItemDetails.getItemName());
+	                		
+	                	}
+	                	
+	                	if(DiffQuantity==(warehouse.getEnteredQuantity()-warehouse.getTallyStock()) && DiffQuantity!=0)
+	                	{
+	                		softAssert.assertEquals(DiffQuantity,(warehouse.getEnteredQuantity()-warehouse.getTallyStock()));
+	                		logger.info("Diff Quantity from UI is: " + DiffQuantity + " & Diff Quantity from Stock verification is: "+(warehouse.getEnteredQuantity()-warehouse.getTallyStock())+" for Warehouse "+WarehouseNm+" & for Item "+storedItemDetails.getItemName());
+	                		
+	                	}
+	                	
+	                }
+	                
+	                logger.info("Total Tally Stock Is: "+TotalTallyStock+" & Total Entered Quantity Is: "+ToatalEnteredQuantity+" & Total Diff Quantity Is: "+TotalDiffQuantity+"For Item: "+storedItemDetails.getItemName());
+	                logger.info("Complted for Item "+itemName+("/n"));
+	           //Total Quantity Verification   
+	                
+	       /*         if((TotalTallyStock!=0 || ToatalEnteredQuantity!=0) && TotalDiffQuantity!=0 ) 
+            	 {
+            			
+            		if(TotalTallyStock==storedItemDetails.getTotalTallyStock()) {
+            		softAssert.assertEquals(TotalTallyStock, storedItemDetails.getTotalTallyStock());
+            		logger.info("Total Tally stock from UI is: " + TotalTallyStock + " & Total Tally stock from Stock verification is: "+storedItemDetails.getTotalTallyStock()+" for Item "+storedItemDetails.getItemName());
+            		}
+            		else 
+            		{
+            			softAssert.assertTrue(false, "For "+itemName+" both Tally stock from UI : " + TotalTallyStock + " & Tally stock from Stock verification : "+storedItemDetails.getTotalTallyStock()+" Not Matching");
+            			logger.error("For "+itemName+" both Tally stock from UI : " + TotalTallyStock + " & Tally stock from Stock verification : "+storedItemDetails.getTotalTallyStock()+" Not Matching");
+            		}
+            		
+            		if(ToatalEnteredQuantity==storedItemDetails.getTotalEnteredQuantity()) {
+            		softAssert.assertEquals(ToatalEnteredQuantity, storedItemDetails.getTotalEnteredQuantity());
+            		logger.info("Toatal Entered Quantity from UI is: " + ToatalEnteredQuantity + " & Total Entered Quantity from Stock verification is: "+storedItemDetails.getTotalEnteredQuantity()+" for Item "+storedItemDetails.getItemName());
+            		}
+            		else
+            		{
+            			softAssert.assertTrue(false, "For "+itemName+" both Total Entered Quantity from UI : " + ToatalEnteredQuantity + " & Total Entered Quantity from Stock verification : "+storedItemDetails.getTotalEnteredQuantity()+" Not Matching");
+            			logger.error("For "+itemName+" both Total Entered Quantity from UI : " + ToatalEnteredQuantity + " & Total Entered Quantity from Stock verification : "+storedItemDetails.getTotalEnteredQuantity()+" Not Matching");
+            		}
+            		
+            		if(TotalDiffQuantity==(storedItemDetails.getTotalEnteredQuantity()-storedItemDetails.getTotalTallyStock())) {
+            		softAssert.assertEquals(TotalDiffQuantity, storedItemDetails.getTotalEnteredQuantity()-storedItemDetails.getTotalTallyStock());
+            		logger.info("Total Diff Quantity from UI is: " + TotalDiffQuantity + " & Total Diff Quantity from Stock verification is: "+(storedItemDetails.getTotalEnteredQuantity()-storedItemDetails.getTotalTallyStock())+" for Item "+storedItemDetails.getItemName());
+            		}else
+            		{
+            			softAssert.assertTrue(false, "For "+itemName+" both Total Diff Quantity from UI : " + TotalDiffQuantity + " & Total Diff Quantity from Stock verification : "+(storedItemDetails.getTotalEnteredQuantity()-storedItemDetails.getTotalTallyStock())+" Not Matching");
+            			logger.error("For "+itemName+" both Total Diff Quantity from UI : " + TotalDiffQuantity + " & Total Diff Quantity from Stock verification : "+(storedItemDetails.getTotalEnteredQuantity()-storedItemDetails.getTotalTallyStock())+" Not Matching");
+            		}
+            	}else if(TotalTallyStock==ToatalEnteredQuantity && TotalDiffQuantity!=0 ) 
+     		{
+     			softAssert.assertTrue(false,"Item "+itemName+" present in mismatch report as even with TotalTallyStock: "+TotalTallyStock+" & ToatalEnteredQuantity: "+ToatalEnteredQuantity+" Quantity are same");
+     			logger.error("Item "+itemName+" present in mismatch report as even with TotalTallyStock: "+TotalTallyStock+" & ToatalEnteredQuantity: "+ToatalEnteredQuantity+" Quantity are same");
+     			
+     		}
+            else if(ToatalEnteredQuantity==0 && TotalTallyStock==0 && TotalDiffQuantity==0) 
+     		{
+     			softAssert.assertTrue(true,"Item "+itemName+" not present in mismatch report as it's not have any mismatch");
+     			logger.info("Item "+itemName+" not present in mismatch report as it's not have any mismatch");
+     		}
+            else if((ToatalEnteredQuantity!=0 || TotalTallyStock!=0) && TotalDiffQuantity==0) 
+     		{
+     			softAssert.assertTrue(true,"Item "+itemName+" present in mismatch report as even with TotalTallyStock: "+" with DiffQuantity: "+TotalDiffQuantity);
+     			logger.info("Item "+itemName+" present in mismatch report as even with TotalTallyStock: "+" with DiffQuantity: "+TotalDiffQuantity);
+     		}
+	             */   
+	                // Optional: Print detailed summary for the item
+	                //dataReader.printItemSummary(itemName);
+	            }else {
+     			
+     			logger.error("But there is error with validation");
+     		}
+	        }
+	    }else if(rs.isSearchPresent()==false) 
+	    {
+	    	softAssert.assertTrue(true,"There is no Missmatch items in the Missmatch report");
+			logger.info("There is no Missmatch items in the Missmatch report");
+	    }else 
+	    {
+	    	softAssert.assertTrue(false,"Error with loading/Unknow error while fetching report data");
+			logger.error("Error with loading/Unknow error while fetching report data");
+	    }
 		
 		
 		

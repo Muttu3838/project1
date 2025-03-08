@@ -27,7 +27,11 @@ public class ReportsPage extends AndroidActions {
 	 @AndroidFindBy(xpath = "//android.view.View[@content-desc=\"Reports\"]/parent::android.view.View/following-sibling::android.view.View[1]/android.view.View/android.view.View/android.widget.ImageView[1]")
 	 private WebElement mismatchreportbtn;
 	 
-	 @AndroidFindBy(xpath = "//android.view.View[@content-desc=\"Mismatch Items Report\"]/following-sibling::android.widget.Button[1]")
+	
+	 @AndroidFindBy(xpath = "//android.view.View[@content-desc=\"Reports\"]/parent::android.view.View/following-sibling::android.view.View[1]/android.view.View/android.view.View/android.widget.ImageView[2]")
+	 private WebElement WarehouseWiseItemReport;
+	 
+	 @AndroidFindBy(xpath = "//android.widget.Button[@content-desc=\"Back\"]/following-sibling::android.widget.Button[1]")
 	 private WebElement filterbtn;
 	 
 	 @AndroidFindBy(xpath = "//android.widget.Button[@content-desc=\"Select year\"]/preceding-sibling::android.view.View[1]/android.view.View/android.widget.Button")
@@ -51,6 +55,10 @@ public class ReportsPage extends AndroidActions {
 	 @AndroidFindBy(xpath = "//android.view.View[@content-desc=\"Diff Stock\"]/following-sibling::android.view.View/android.view.View[4]")
 	 private WebElement DiffQuantity;
 	 
+	//android.view.View[@content-desc="Diff Stock"]
+	 @AndroidFindBy(xpath = "//android.view.View[@content-desc=\"Diff Stock\"]")
+	 private WebElement DiffStockBar;
+	 
 	//android.widget.EditText
 	 @AndroidFindBy(xpath = "//android.widget.EditText")
 	 private WebElement serachbtn;
@@ -58,6 +66,64 @@ public class ReportsPage extends AndroidActions {
 	
 	 @AndroidFindBy(xpath = "//android.view.View[@content-desc=\"Select Warehouse\"]/preceding-sibling::android.widget.Button")
 	 private WebElement BranchBtn;
+	 
+	 
+	 public WebElement getTallyStockbyWarehouse(String warehousenm) {
+	        String xpath = String.format("//android.view.View[@content-desc=\"%s\"]/following-sibling::android.view.View[1]", warehousenm);
+	        return driver.findElement(AppiumBy.xpath(xpath));
+	    }
+	 
+	 public WebElement getEnteredStockbyWarehouse(String warehousenm) {
+	        String xpath = String.format("//android.view.View[@content-desc=\"%s\"]/following-sibling::android.view.View[2]", warehousenm);
+	        return driver.findElement(AppiumBy.xpath(xpath));
+	    }
+	 
+	 public WebElement getDiffQuantitybyWarehouse(String warehousenm) {
+	        String xpath = String.format("//android.view.View[@content-desc=\"%s\"]/following-sibling::android.view.View[3]", warehousenm);
+	        return driver.findElement(AppiumBy.xpath(xpath));
+	    }
+	 
+	 public double TallyStockbyWarehouse(String warehousenm)
+		{
+			try {
+			waitForElementToAppear( getTallyStockbyWarehouse(warehousenm), driver);
+		  String value= getTallyStockbyWarehouse(warehousenm).getDomAttribute("content-desc");
+		  double Quantity = Double.parseDouble(value);
+		  return Quantity;
+			}catch(Exception e)
+			{
+				return 0;
+			}
+			
+		}
+		
+		public double EnteredQuantitybyWarehouse(String warehousenm)
+		{
+			try {
+			waitForElementToAppear(getEnteredStockbyWarehouse(warehousenm), driver);
+		  String value=getEnteredStockbyWarehouse(warehousenm).getDomAttribute("content-desc");
+		  double Quantity = Double.parseDouble(value);
+			return Quantity;
+			}catch(Exception e)
+			{
+				return 0;
+			}
+		}
+		
+		public  double DiffQuantitybyWarehouse(String warehousenm)
+		{
+			try {
+			waitForElementToAppear(getDiffQuantitybyWarehouse(warehousenm), driver);
+		  String value=getDiffQuantitybyWarehouse(warehousenm).getDomAttribute("content-desc");
+		  double Quantity = Double.parseDouble(value);
+			return Quantity;
+			}catch(Exception e)
+			{
+				return 0;
+			}
+			
+		}
+	 
 	 
 	 public  void reportsBtn()
 		{
@@ -70,6 +136,13 @@ public class ReportsPage extends AndroidActions {
 		{
 			waitForElementTobeClickable(mismatchreportbtn, driver);
 			mismatchreportbtn.click();
+			
+		}
+	 
+	 public  void warehouseWiseReportBtn()
+		{
+			waitForElementTobeClickable(WarehouseWiseItemReport, driver);
+			WarehouseWiseItemReport.click();
 			
 		}
 	 
@@ -192,5 +265,11 @@ public class ReportsPage extends AndroidActions {
 				return 0;
 			}
 			
+		}
+		
+		public WebElement DiffStockElement() throws InterruptedException
+		{
+			Thread.sleep(1000);
+		 return DiffStockBar;
 		}
 }
